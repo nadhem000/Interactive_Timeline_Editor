@@ -117,6 +117,9 @@ GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  
+  # PWA Headers
+  Service-Worker-Allowed: /
 [file content end]
 [file name]: package.json
 [file content begin]
@@ -158,5 +161,60 @@ User-agent: *
 Allow: /
 [file content end]
 // [file content end]
+[file name]: manifest.json
+[file content begin]
+{
+  "name": "Interactive Timeline Editor",
+  "short_name": "Timeline Editor",
+  "id": "InteractiveTimelineEditor",
+  "description": "Create and customize your own timeline with events, eras, and multiple languages",
+  "author": "Mejri Ziad",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#3498db",
+  "background_color": "#f5f7fa",
+  "icons": [
+    {
+      "src": "assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["education", "productivity", "utilities"],
+  "lang": "en",
+  "scope": "/",
+  "screenshots": [
+    {
+      "src": "assets/screenshots/screenshot-desktop_1280x720.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Interactive Timeline Editor main interface"
+    },
+    {
+      "src": "assets/screenshots/screenshot-mobile_375x667.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Interactive Timeline Editor main interface"
+    }
+  ],
+  "features": [
+    "Timeline creation and management",
+    "Multi-language support", 
+    "Accessibility features",
+    "Offline functionality"
+  ],
+  "related_applications": []
+}
+[file content end]
 **About Section Paragraph:**
 "The Interactive Timeline Editor is an open-source web application designed to make historical and project timeline creation accessible to everyone. Built with web standards and accessibility as core principles, it enables users to create beautiful, multilingual timelines without technical expertise. The tool features comprehensive accessibility options including multiple reading modes, adjustable font sizes, and full keyboard navigation, making timeline creation inclusive for users with diverse abilities and preferences."

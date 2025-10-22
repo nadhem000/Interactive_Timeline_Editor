@@ -1,0 +1,52 @@
+{
+	"name": "Interactive Timeline Editor",
+	"short_name": "Timeline Editor",
+	"id": "InteractiveTimelineEditor",
+	"description": "Create and customize your own timeline with events, eras, and multiple languages",
+	"author": "Mejri Ziad",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"theme_color": "#3498db",
+	"background_color": "#f5f7fa",
+	"icons": [
+		{
+			"src": "assets/icons/icon-72x72.png",
+			"sizes": "72x72",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "assets/icons/icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	],
+	"categories": ["education", "productivity", "utilities"],
+	"lang": "en",
+	"scope": "/",
+	"screenshots": [
+		{
+			"src": "assets/screenshots/screenshot-desktop_1280x720.png",
+			"sizes": "1280x720",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Interactive Timeline Editor main interface"
+		},
+		{
+			"src": "assets/screenshots/screenshot-mobile_375x667.png",
+			"sizes": "375x667",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Interactive Timeline Editor main interface"
+		}
+	],
+	"features": [
+		"Timeline creation and management",
+		"Multi-language support", 
+		"Accessibility features",
+		"Offline functionality"
+	],
+	"related_applications": []
+}
