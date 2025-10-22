@@ -1,4 +1,3 @@
-// Accessibility and Options functionality for WTH Timeline
 const WTHtimelineaccessibility = (function() {
     // Font size management
     let WTHtimelineCurrentFontSize = 12;
@@ -6,6 +5,14 @@ const WTHtimelineaccessibility = (function() {
     
     // PWA installation
     let WTHtimelineDeferredPrompt = null;
+
+    // Sync settings
+    const WTHtimelineSyncSettings = {
+        backgroundSync: true,
+        periodicSync: true,
+        lastSync: null,
+        syncInterval: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
+    };
 
     // Define the font size update function FIRST
     function WTHtimelineaccessibilityUpdateFontSize() {
@@ -26,11 +33,156 @@ const WTHtimelineaccessibility = (function() {
         }
     }
 
+    // Load sync settings from localStorage
+    function WTHtimelineaccessibilityLoadSyncSettings() {
+        try {
+            const savedSettings = localStorage.getItem('WTHtimelineSyncSettings');
+            if (savedSettings) {
+                const parsedSettings = JSON.parse(savedSettings);
+                Object.assign(WTHtimelineSyncSettings, parsedSettings);
+            }
+            WTHtimelineaccessibilityUpdateSyncUI();
+        } catch (error) {
+            console.error('WTH Timeline: Error loading sync settings', error);
+        }
+    }
+
+    // Save sync settings to localStorage
+    function WTHtimelineaccessibilitySaveSyncSettings() {
+        try {
+            localStorage.setItem('WTHtimelineSyncSettings', JSON.stringify(WTHtimelineSyncSettings));
+            WTHtimelineaccessibilityUpdateSyncUI();
+        } catch (error) {
+            console.error('WTH Timeline: Error saving sync settings', error);
+        }
+    }
+
+    // Update sync UI based on current settings
+    function WTHtimelineaccessibilityUpdateSyncUI() {
+        // Update radio buttons
+        const backgroundSyncYes = document.querySelector('input[name="WTHtimelineBackgroundSyncOption"][value="yes"]');
+        const backgroundSyncNo = document.querySelector('input[name="WTHtimelineBackgroundSyncOption"][value="no"]');
+        const periodicSyncYes = document.querySelector('input[name="WTHtimelinePeriodicSyncOption"][value="yes"]');
+        const periodicSyncNo = document.querySelector('input[name="WTHtimelinePeriodicSyncOption"][value="no"]');
+
+        if (backgroundSyncYes && backgroundSyncNo) {
+            if (WTHtimelineSyncSettings.backgroundSync) {
+                backgroundSyncYes.checked = true;
+            } else {
+                backgroundSyncNo.checked = true;
+            }
+        }
+
+        if (periodicSyncYes && periodicSyncNo) {
+            if (WTHtimelineSyncSettings.periodicSync) {
+                periodicSyncYes.checked = true;
+            } else {
+                periodicSyncNo.checked = true;
+            }
+        }
+    }
+
     // Initialize accessibility features
     function WTHtimelineaccessibilityInit() {
+        WTHtimelineaccessibilityLoadSyncSettings();
         WTHtimelineaccessibilityBindEvents();
         WTHtimelineaccessibilityUpdateFontSize();
         WTHtimelineaccessibilityInitializePWA();
+        WTHtimelineaccessibilityInitializeSync();
+    }
+
+    // Initialize sync functionality
+    function WTHtimelineaccessibilityInitializeSync() {
+        if ('serviceWorker' in navigator && 'SyncManager' in window) {
+            navigator.serviceWorker.ready.then(registration => {
+                // Register periodic sync if enabled
+                if (WTHtimelineSyncSettings.periodicSync) {
+                    WTHtimelineaccessibilityRegisterPeriodicSync(registration);
+                }
+                
+                // Check if background sync should be triggered
+                if (WTHtimelineSyncSettings.backgroundSync) {
+                    WTHtimelineaccessibilityCheckBackgroundSync();
+                }
+            });
+        }
+    }
+
+    // Register periodic background sync
+    function WTHtimelineaccessibilityRegisterPeriodicSync(registration) {
+        if ('periodicSync' in registration) {
+            try {
+                registration.periodicSync.register('WTH-timeline-update', {
+                    minInterval: WTHtimelineSyncSettings.syncInterval // 24 hours
+                }).then(() => {
+                    console.log('WTH Timeline: Periodic sync registered');
+                }).catch(error => {
+                    console.log('WTH Timeline: Periodic sync registration failed:', error);
+                });
+            } catch (error) {
+                console.log('WTH Timeline: Periodic sync not supported:', error);
+            }
+        }
+    }
+
+    // Unregister periodic sync
+    function WTHtimelineaccessibilityUnregisterPeriodicSync(registration) {
+        if ('periodicSync' in registration) {
+            registration.periodicSync.unregister('WTH-timeline-update').then(() => {
+                console.log('WTH Timeline: Periodic sync unregistered');
+            }).catch(error => {
+                console.log('WTH Timeline: Periodic sync unregistration failed:', error);
+            });
+        }
+    }
+
+    // Check if background sync should be triggered
+    function WTHtimelineaccessibilityCheckBackgroundSync() {
+        const now = Date.now();
+        const shouldSync = !WTHtimelineSyncSettings.lastSync || 
+                          (now - WTHtimelineSyncSettings.lastSync) > WTHtimelineSyncSettings.syncInterval;
+        
+        if (shouldSync && WTHtimelineSyncSettings.backgroundSync) {
+            WTHtimelineaccessibilityTriggerBackgroundSync();
+        }
+    }
+
+    // Trigger background sync
+    function WTHtimelineaccessibilityTriggerBackgroundSync() {
+        if ('serviceWorker' in navigator && 'SyncManager' in window) {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.sync.register('WTH-timeline-background-sync').then(() => {
+                    console.log('WTH Timeline: Background sync registered');
+                    WTHtimelineSyncSettings.lastSync = Date.now();
+                    WTHtimelineaccessibilitySaveSyncSettings();
+                }).catch(error => {
+                    console.log('WTH Timeline: Background sync registration failed:', error);
+                });
+            });
+        }
+    }
+
+    // Handle sync setting changes
+    function WTHtimelineaccessibilityHandleSyncSettingChange(setting, value) {
+        WTHtimelineSyncSettings[setting] = value;
+        WTHtimelineaccessibilitySaveSyncSettings();
+
+        // Update service worker registration if needed
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(registration => {
+                if (setting === 'periodicSync') {
+                    if (value) {
+                        WTHtimelineaccessibilityRegisterPeriodicSync(registration);
+                    } else {
+                        WTHtimelineaccessibilityUnregisterPeriodicSync(registration);
+                    }
+                }
+                
+                if (setting === 'backgroundSync' && value) {
+                    WTHtimelineaccessibilityTriggerBackgroundSync();
+                }
+            });
+        }
     }
 
     // Initialize PWA installation
@@ -133,6 +285,21 @@ const WTHtimelineaccessibility = (function() {
             fontSizeIncreaseBtn.addEventListener('click', WTHtimelineaccessibilityIncreaseFontSize);
         }
         
+        // NEW: Sync option events
+        const backgroundSyncOptions = document.querySelectorAll('input[name="WTHtimelineBackgroundSyncOption"]');
+        backgroundSyncOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                WTHtimelineaccessibilityHandleSyncSettingChange('backgroundSync', this.value === 'yes');
+            });
+        });
+        
+        const periodicSyncOptions = document.querySelectorAll('input[name="WTHtimelinePeriodicSyncOption"]');
+        periodicSyncOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                WTHtimelineaccessibilityHandleSyncSettingChange('periodicSync', this.value === 'yes');
+            });
+        });
+        
         // NEW: Action button events
         const saveChangesBtn = WTHtimelineDOMManager.getElement('WTHtimelineSaveChanges');
         if (saveChangesBtn) {
@@ -155,17 +322,11 @@ const WTHtimelineaccessibility = (function() {
             WTHtimelineaccessibilitySyncNow.addEventListener('click', WTHtimelineaccessibilityHandleSyncNow);
         }
         
-        // Option interactions (show coming soon for any option change)
-        const WTHtimelineaccessibilityOptionElements = WTHtimelineDOMManager.getElements(
-            '#WTHtimelineOptionsModal input, #WTHtimelineOptionsModal select, #WTHtimelineSyncNow'
-        );
-        
-        WTHtimelineaccessibilityOptionElements.forEach(element => {
-            element.addEventListener('click', function() {
-                WTHtimelineaccessibilityShowComingSoon();
-                WTHtimelineaccessibilityCloseOptionsModal();
-            });
-        });
+        // Install button event
+        const installBtn = WTHtimelineDOMManager.getElement('WTHtimelineInstallBtn');
+        if (installBtn) {
+            installBtn.addEventListener('click', WTHtimelineaccessibilityHandleInstall);
+        }
         
         // Close modals when clicking outside
         window.addEventListener('click', function(event) {
@@ -198,7 +359,6 @@ const WTHtimelineaccessibility = (function() {
         }
     }
 
-    // Rest of the existing functions remain unchanged...
     // Open options modal
     function WTHtimelineaccessibilityOpenOptionsModal() {
         const WTHtimelineaccessibilityOptionsModal = WTHtimelineDOMManager.getElement('WTHtimelineOptionsModal');
@@ -233,18 +393,33 @@ const WTHtimelineaccessibility = (function() {
 
     // Handle sync now functionality
     function WTHtimelineaccessibilityHandleSyncNow() {
-        WTHtimelineaccessibilityShowComingSoon();
-        WTHtimelineaccessibilityCloseOptionsModal();
-        
-        // Future sync functionality would go here
-        console.log('WTHtimelineaccessibility: Sync functionality would be implemented here');
+        if (WTHtimelineSyncSettings.backgroundSync) {
+            WTHtimelineaccessibilityTriggerBackgroundSync();
+            alert('Sync started! Your timeline data will be updated in the background.');
+        } else {
+            alert('Background sync is disabled. Enable it in settings to use this feature.');
+        }
     }
 
     // Action button handlers
     function WTHtimelineaccessibilitySaveChanges() {
-        // Save current settings (in a real app, this would save to localStorage or backend)
+        // Save current settings
         const settings = WTHtimelineaccessibilityGetSettings();
-        console.log('WTHtimelineaccessibility: Saving settings', settings);
+        
+        // Update sync settings based on form
+        const backgroundSyncYes = document.querySelector('input[name="WTHtimelineBackgroundSyncOption"][value="yes"]');
+        const periodicSyncYes = document.querySelector('input[name="WTHtimelinePeriodicSyncOption"][value="yes"]');
+        
+        if (backgroundSyncYes) {
+            WTHtimelineSyncSettings.backgroundSync = backgroundSyncYes.checked;
+        }
+        if (periodicSyncYes) {
+            WTHtimelineSyncSettings.periodicSync = periodicSyncYes.checked;
+        }
+        
+        WTHtimelineaccessibilitySaveSyncSettings();
+        
+        console.log('WTH Timeline: Saving settings', settings);
         
         // Show success feedback
         alert('Settings saved successfully!');
@@ -252,8 +427,9 @@ const WTHtimelineaccessibility = (function() {
     }
 
     function WTHtimelineaccessibilityDiscardChanges() {
-        // Reset to previously saved settings (in a real app, this would reload from storage)
-        console.log('WTHtimelineaccessibility: Discarding changes');
+        // Reset to previously saved settings
+        WTHtimelineaccessibilityLoadSyncSettings();
+        console.log('WTH Timeline: Discarding changes');
         WTHtimelineaccessibilityCloseOptionsModal();
     }
 
@@ -276,17 +452,20 @@ const WTHtimelineaccessibility = (function() {
             const updatesNo = document.querySelector('input[name="WTHtimelineUpdatesOption"][value="no"]');
             if (updatesNo) updatesNo.checked = true;
             
-            const syncYes = document.querySelector('input[name="WTHtimelineSyncOption"][value="yes"]');
-            if (syncYes) syncYes.checked = true;
+            // Reset sync settings to default
+            WTHtimelineSyncSettings.backgroundSync = true;
+            WTHtimelineSyncSettings.periodicSync = true;
+            WTHtimelineSyncSettings.lastSync = null;
+            WTHtimelineaccessibilitySaveSyncSettings();
             
-            console.log('WTHtimelineaccessibility: Settings reset to default');
+            console.log('WTH Timeline: Settings reset to default');
         }
     }
 
     // Apply accessibility settings (for future use)
     function WTHtimelineaccessibilityApplySettings(settings) {
         // Future implementation for applying accessibility settings
-        console.log('WTHtimelineaccessibility: Applying settings', settings);
+        console.log('WTH Timeline: Applying settings', settings);
     }
 
     // Get current accessibility settings
@@ -299,7 +478,8 @@ const WTHtimelineaccessibility = (function() {
         const readingMode = document.querySelector('input[name="WTHtimelineReadingModeOption"]:checked')?.value || 'normal';
         const notifications = document.querySelector('input[name="WTHtimelineNotificationsOption"]:checked')?.value || 'yes';
         const updates = document.querySelector('input[name="WTHtimelineUpdatesOption"]:checked')?.value || 'no';
-        const sync = document.querySelector('input[name="WTHtimelineSyncOption"]:checked')?.value || 'yes';
+        const backgroundSync = document.querySelector('input[name="WTHtimelineBackgroundSyncOption"]:checked')?.value || 'yes';
+        const periodicSync = document.querySelector('input[name="WTHtimelinePeriodicSyncOption"]:checked')?.value || 'yes';
         
         const settings = {
             language: language,
@@ -308,7 +488,8 @@ const WTHtimelineaccessibility = (function() {
             fontSize: WTHtimelineCurrentFontSize,
             notifications: notifications,
             updates: updates,
-            sync: sync
+            backgroundSync: backgroundSync,
+            periodicSync: periodicSync
         };
         return settings;
     }
@@ -320,6 +501,7 @@ const WTHtimelineaccessibility = (function() {
         closeOptions: WTHtimelineaccessibilityCloseOptionsModal,
         showHelp: WTHtimelineaccessibilityShowComingSoon,
         getSettings: WTHtimelineaccessibilityGetSettings,
-        applySettings: WTHtimelineaccessibilityApplySettings
+        applySettings: WTHtimelineaccessibilityApplySettings,
+        getSyncSettings: function() { return WTHtimelineSyncSettings; }
     };
 })();

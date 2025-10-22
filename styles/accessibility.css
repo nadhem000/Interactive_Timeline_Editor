@@ -1,11 +1,130 @@
 /* Accessibility CSS for WTH Timeline */
 :root {
+    /* Base Colors - Light Mode (Default) */
     --WTH-timeline-primary-color: #3498db;
     --WTH-timeline-secondary-color: #2c3e50;
     --WTH-timeline-accent-color: #e74c3c;
     --WTH-timeline-light-color: #ecf0f1;
     --WTH-timeline-dark-color: #34495e;
     --WTH-timeline-success-color: #2ecc71;
+    
+    /* Background Colors - Light Mode */
+    --WTH-timeline-bg-color: #f5f7fa;
+    --WTH-timeline-card-bg: #ffffff;
+    --WTH-timeline-header-bg: linear-gradient(135deg, var(--WTH-timeline-primary-color), var(--WTH-timeline-secondary-color));
+    
+    /* Text Colors - Light Mode */
+    --WTH-timeline-text-color: #2c3e50;
+    --WTH-timeline-text-light: #7f8c8d;
+    --WTH-timeline-text-inverse: #ffffff;
+    
+    /* Border & Shadow Colors - Light Mode */
+    --WTH-timeline-border-color: #e0e0e0;
+    --WTH-timeline-shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* Contrast Settings - Normal (Default) */
+    --WTH-timeline-contrast-ratio: 1;
+    --WTH-timeline-contrast-filter: none;
+    
+    /* Font Size Settings */
+    --WTH-timeline-base-font-size: 16px;
+    --WTH-timeline-font-scale: 1;
+    
+    /* Layout Direction */
+    --WTH-timeline-direction: ltr;
+    --WTH-timeline-text-align: left;
+    
+    /* Spacing */
+    --WTH-timeline-spacing-xs: 5px;
+    --WTH-timeline-spacing-sm: 10px;
+    --WTH-timeline-spacing-md: 15px;
+    --WTH-timeline-spacing-lg: 20px;
+    --WTH-timeline-spacing-xl: 30px;
+}
+
+/* Dark Mode Variables */
+.WTH-timeline-container.dark-mode {
+    --WTH-timeline-bg-color: #1a1a1a;
+    --WTH-timeline-card-bg: #2d2d2d;
+    --WTH-timeline-header-bg: linear-gradient(135deg, #2980b9, #34495e);
+    --WTH-timeline-text-color: #ecf0f1;
+    --WTH-timeline-text-light: #bdc3c7;
+    --WTH-timeline-border-color: #444;
+    --WTH-timeline-shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* High Contrast Mode */
+.WTH-timeline-container.high-contrast {
+    --WTH-timeline-primary-color: #0056b3;
+    --WTH-timeline-secondary-color: #000000;
+    --WTH-timeline-accent-color: #ff0000;
+    --WTH-timeline-success-color: #008000;
+    --WTH-timeline-bg-color: #ffffff;
+    --WTH-timeline-card-bg: #ffffff;
+    --WTH-timeline-text-color: #000000;
+    --WTH-timeline-text-light: #333333;
+    --WTH-timeline-border-color: #000000;
+    --WTH-timeline-contrast-ratio: 1.5;
+    --WTH-timeline-contrast-filter: contrast(1.5);
+}
+
+/* Low Contrast Mode */
+.WTH-timeline-container.low-contrast {
+    --WTH-timeline-primary-color: #6c757d;
+    --WTH-timeline-secondary-color: #6c757d;
+    --WTH-timeline-accent-color: #6c757d;
+    --WTH-timeline-success-color: #6c757d;
+    --WTH-timeline-bg-color: #f8f9fa;
+    --WTH-timeline-card-bg: #f8f9fa;
+    --WTH-timeline-text-color: #6c757d;
+    --WTH-timeline-text-light: #8a9399;
+    --WTH-timeline-border-color: #e9ecef;
+    --WTH-timeline-contrast-ratio: 0.7;
+    --WTH-timeline-contrast-filter: contrast(0.7);
+}
+
+/* RTL Direction */
+.WTH-timeline-container.rtl {
+    --WTH-timeline-direction: rtl;
+    --WTH-timeline-text-align: right;
+}
+
+/* Font Size Classes */
+.WTH-timeline-container.font-size-xs {
+    --WTH-timeline-base-font-size: 12px;
+    --WTH-timeline-font-scale: 0.75;
+}
+
+.WTH-timeline-container.font-size-sm {
+    --WTH-timeline-base-font-size: 14px;
+    --WTH-timeline-font-scale: 0.875;
+}
+
+.WTH-timeline-container.font-size-lg {
+    --WTH-timeline-base-font-size: 18px;
+    --WTH-timeline-font-scale: 1.125;
+}
+
+.WTH-timeline-container.font-size-xl {
+    --WTH-timeline-base-font-size: 20px;
+    --WTH-timeline-font-scale: 1.25;
+}
+
+/* Apply contrast filter to images and interactive elements */
+.WTH-timeline-container.high-contrast img,
+.WTH-timeline-container.high-contrast button,
+.WTH-timeline-container.high-contrast input,
+.WTH-timeline-container.high-contrast select,
+.WTH-timeline-container.high-contrast textarea {
+    filter: var(--WTH-timeline-contrast-filter);
+}
+
+.WTH-timeline-container.low-contrast img,
+.WTH-timeline-container.low-contrast button,
+.WTH-timeline-container.low-contrast input,
+.WTH-timeline-container.low-contrast select,
+.WTH-timeline-container.low-contrast textarea {
+    filter: var(--WTH-timeline-contrast-filter);
 }
 
 /* Options Icon Styles */
@@ -77,9 +196,9 @@
 }
 
 .WTH-timeline-modal-content {
-    background-color: white;
+    background-color: var(--WTH-timeline-card-bg);
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px var(--WTH-timeline-shadow-color);
     width: 90%;
     max-width: 500px;
     max-height: 80vh;
@@ -89,7 +208,7 @@
 
 .WTH-timeline-modal-header {
     padding: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--WTH-timeline-border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -106,7 +225,7 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #7f8c8d;
+    color: var(--WTH-timeline-text-light);
     transition: color 0.3s;
 }
 
@@ -132,10 +251,11 @@
 .WTH-timeline-option-select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--WTH-timeline-border-color);
     border-radius: 5px;
     font-size: 1rem;
-    background-color: white;
+    background-color: var(--WTH-timeline-card-bg);
+    color: var(--WTH-timeline-text-color);
 }
 
 .WTH-timeline-radio-group {
@@ -155,7 +275,7 @@
 
 .WTH-timeline-modal-footer {
     padding: 15px 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--WTH-timeline-border-color);
     display: flex;
     justify-content: flex-end;
 }
@@ -175,9 +295,9 @@
 }
 
 .WTH-timeline-coming-soon-content {
-    background-color: white;
+    background-color: var(--WTH-timeline-card-bg);
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px var(--WTH-timeline-shadow-color);
     width: 90%;
     max-width: 400px;
     padding: 30px;
@@ -198,7 +318,7 @@
 
 .WTH-timeline-coming-soon-text {
     margin-bottom: 20px;
-    color: #7f8c8d;
+    color: var(--WTH-timeline-text-light);
 }
 
 /* Font Size Control Styles */
@@ -212,8 +332,8 @@
 .WTH-timeline-font-size-btn {
     width: 35px;
     height: 35px;
-    border: 1px solid #ddd;
-    background-color: #f8f9fa;
+    border: 1px solid var(--WTH-timeline-border-color);
+    background-color: var(--WTH-timeline-light-color);
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.2rem;
@@ -225,20 +345,23 @@
 }
 
 .WTH-timeline-font-size-btn:hover {
-    background-color: #e9ecef;
+    background-color: var(--WTH-timeline-primary-color);
     border-color: var(--WTH-timeline-primary-color);
+    color: white;
 }
 
 .WTH-timeline-font-size-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background-color: #f8f9fa;
-    border-color: #ddd;
+    background-color: var(--WTH-timeline-light-color);
+    border-color: var(--WTH-timeline-border-color);
+    color: var(--WTH-timeline-text-light);
 }
 
 .WTH-timeline-font-size-btn:disabled:hover {
-    background-color: #f8f9fa;
-    border-color: #ddd;
+    background-color: var(--WTH-timeline-light-color);
+    border-color: var(--WTH-timeline-border-color);
+    color: var(--WTH-timeline-text-light);
 }
 
 .WTH-timeline-font-size-display {
@@ -247,9 +370,9 @@
     font-weight: 600;
     color: var(--WTH-timeline-secondary-color);
     padding: 5px 10px;
-    background-color: #f8f9fa;
+    background-color: var(--WTH-timeline-light-color);
     border-radius: 5px;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--WTH-timeline-border-color);
 }
 
 /* Action Buttons Styles */
@@ -258,7 +381,7 @@
     gap: 10px;
     margin-top: 25px;
     padding-top: 20px;
-    border-top: 1px solid #e9ecef;
+    border-top: 1px solid var(--WTH-timeline-border-color);
     flex-wrap: wrap;
 }
 
@@ -322,7 +445,7 @@
 .WTH-timeline-install-btn:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--WTH-timeline-shadow-color);
 }
 
 .WTH-timeline-install-icon {

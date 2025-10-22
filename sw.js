@@ -1,5 +1,5 @@
 // Service Worker for Interactive Timeline Editor
-const WTHtimelineCacheName = 'WTH-timeline-v1.0.1';
+const WTHtimelineCacheName = 'WTH-timeline-v1.0.2';
 const WTHtimelineAssets = [
   '/',
   '/index.html',
@@ -97,10 +97,89 @@ self.addEventListener('message', (event) => {
   }
 });
 
-// Background Sync for offline data (future enhancement)
+// NEW: Background Sync Event
 self.addEventListener('sync', (event) => {
-  if (event.tag === 'WTH-timeline-sync') {
+  if (event.tag === 'WTH-timeline-background-sync') {
     console.log('WTH Timeline Service Worker: Background sync triggered');
-    // Future implementation for syncing timeline data
+    event.waitUntil(
+      WTHtimelineHandleBackgroundSync()
+    );
+  }
+});
+
+// NEW: Periodic Sync Event
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'WTH-timeline-update') {
+    console.log('WTH Timeline Service Worker: Periodic sync triggered');
+    event.waitUntil(
+      WTHtimelineHandlePeriodicSync()
+    );
+  }
+});
+
+// NEW: Handle background sync
+function WTHtimelineHandleBackgroundSync() {
+  return caches.open(WTHtimelineCacheName).then(cache => {
+    // Check for updated assets
+    return Promise.all(
+      WTHtimelineAssets.map(asset => {
+        return fetch(asset, { cache: 'no-cache' }).then(response => {
+          if (response.status === 200) {
+            return cache.put(asset, response);
+          }
+        }).catch(error => {
+          console.log('WTH Timeline Service Worker: Failed to update', asset, error);
+        });
+      })
+    ).then(() => {
+      console.log('WTH Timeline Service Worker: Background sync completed');
+      // Notify all clients that sync completed
+      return self.clients.matchAll().then(clients => {
+        clients.forEach(client => {
+          client.postMessage({
+            type: 'SYNC_COMPLETED',
+            timestamp: new Date().toISOString()
+          });
+        });
+      });
+    });
+  });
+}
+
+// NEW: Handle periodic sync
+function WTHtimelineHandlePeriodicSync() {
+  return caches.open(WTHtimelineCacheName).then(cache => {
+    // Update critical assets only
+    const criticalAssets = [
+      '/',
+      '/index.html',
+      '/styles/main.css',
+      '/scripts/control.js'
+    ];
+    
+    return Promise.all(
+      criticalAssets.map(asset => {
+        return fetch(asset, { cache: 'no-cache' }).then(response => {
+          if (response.status === 200) {
+            return cache.put(asset, response);
+          }
+        }).catch(error => {
+          console.log('WTH Timeline Service Worker: Failed to update', asset, error);
+        });
+      })
+    ).then(() => {
+      console.log('WTH Timeline Service Worker: Periodic sync completed');
+    });
+  });
+}
+
+// NEW: Listen for sync completion messages to update the UI
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'CHECK_SYNC_STATUS') {
+    // Return current sync status
+    event.ports[0].postMessage({
+      type: 'SYNC_STATUS',
+      lastSync: new Date().toISOString()
+    });
   }
 });

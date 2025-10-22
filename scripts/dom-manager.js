@@ -39,124 +39,140 @@ const WTHtimelineDOMManager = (function() {
 
         // Options Modal
         optionsModal: {
-    id: 'WTHtimelineOptionsModal',
-    html: `
-        <div class="WTH-timeline-modal-content">
-            <div class="WTH-timeline-modal-header">
-                <h3 class="WTH-timeline-modal-title" data-i18n="WTH.timeline.generalOptions.settings_title">Settings</h3>
-                <button class="WTH-timeline-modal-close" id="WTHtimelineModalClose">&times;</button>
-            </div>
-            <div class="WTH-timeline-modal-body">
-                <div class="WTH-timeline-option-group">
-                    <label class="WTH-timeline-option-label" for="WTHtimelineLanguageOption" data-i18n="WTH.timeline.generalOptions.language_label">Language</label>
-                    <select class="WTH-timeline-option-select" id="WTHtimelineLanguageOption">
-                        <option value="en" data-i18n="WTH.timeline.generalOptions.language_en">English</option>
-                        <option value="es" data-i18n="WTH.timeline.generalOptions.language_es">Spanish</option>
-                        <option value="fr" data-i18n="WTH.timeline.generalOptions.language_fr">French</option>
-                        <option value="de" data-i18n="WTH.timeline.generalOptions.language_de">German</option>
-                        <option value="it" data-i18n="WTH.timeline.generalOptions.language_it">Italian</option>
-                    </select>
-                </div>
-                
-                <div class="WTH-timeline-option-group">
-                    <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.mode_label">Mode</label>
-                    <div class="WTH-timeline-radio-group">
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineModeOption" value="light" checked> 
-                            <span data-i18n="WTH.timeline.generalOptions.mode_light">Light</span>
-                        </label>
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineModeOption" value="dark"> 
-                            <span data-i18n="WTH.timeline.generalOptions.mode_dark">Dark</span>
-                        </label>
+            id: 'WTHtimelineOptionsModal',
+            html: `
+                <div class="WTH-timeline-modal-content">
+                    <div class="WTH-timeline-modal-header">
+                        <h3 class="WTH-timeline-modal-title" data-i18n="WTH.timeline.generalOptions.settings_title">Settings</h3>
+                        <button class="WTH-timeline-modal-close" id="WTHtimelineModalClose">&times;</button>
+                    </div>
+                    <div class="WTH-timeline-modal-body">
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label" for="WTHtimelineLanguageOption" data-i18n="WTH.timeline.generalOptions.language_label">Language</label>
+                            <select class="WTH-timeline-option-select" id="WTHtimelineLanguageOption">
+                                <option value="en" data-i18n="WTH.timeline.generalOptions.language_en">English</option>
+                                <option value="es" data-i18n="WTH.timeline.generalOptions.language_es">Spanish</option>
+                                <option value="fr" data-i18n="WTH.timeline.generalOptions.language_fr">French</option>
+                                <option value="de" data-i18n="WTH.timeline.generalOptions.language_de">German</option>
+                                <option value="it" data-i18n="WTH.timeline.generalOptions.language_it">Italian</option>
+                            </select>
+                        </div>
+                        
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.mode_label">Mode</label>
+                            <div class="WTH-timeline-radio-group">
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineModeOption" value="light" checked> 
+                                    <span data-i18n="WTH.timeline.generalOptions.mode_light">Light</span>
+                                </label>
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineModeOption" value="dark"> 
+                                    <span data-i18n="WTH.timeline.generalOptions.mode_dark">Dark</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Reading Mode Option -->
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.reading_mode_label">Reading Mode</label>
+                            <div class="WTH-timeline-radio-group">
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineReadingModeOption" value="normal" checked> 
+                                    <span data-i18n="WTH.timeline.generalOptions.reading_mode_normal">Normal Contrast</span>
+                                </label>
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineReadingModeOption" value="high"> 
+                                    <span data-i18n="WTH.timeline.generalOptions.reading_mode_high">High Contrast</span>
+                                </label>
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineReadingModeOption" value="low"> 
+                                    <span data-i18n="WTH.timeline.generalOptions.reading_mode_low">Low Contrast</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Font Size Control -->
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.font_size_label">Font Size</label>
+                            <div class="WTH-timeline-font-size-control">
+                                <button class="WTH-timeline-font-size-btn" id="WTHtimelineFontSizeDecrease" data-i18n="WTH.timeline.generalOptions.font_size_decrease">-</button>
+                                <span class="WTH-timeline-font-size-display" id="WTHtimelineFontSizeDisplay" data-i18n="WTH.timeline.generalOptions.font_size_default">12px</span>
+                                <button class="WTH-timeline-font-size-btn" id="WTHtimelineFontSizeIncrease" data-i18n="WTH.timeline.generalOptions.font_size_increase">+</button>
+                            </div>
+                        </div>
+                        
+                        <!-- NEW: Background Sync Option -->
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label">Background Sync</label>
+                            <div class="WTH-timeline-radio-group">
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineBackgroundSyncOption" value="yes" checked> 
+                                    <span>Yes</span>
+                                </label>
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineBackgroundSyncOption" value="no"> 
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- NEW: Periodic Sync Option -->
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label">Periodic Sync</label>
+                            <div class="WTH-timeline-radio-group">
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelinePeriodicSyncOption" value="yes" checked> 
+                                    <span>Yes</span>
+                                </label>
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelinePeriodicSyncOption" value="no"> 
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.notifications_label">Notifications</label>
+                            <div class="WTH-timeline-radio-group">
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineNotificationsOption" value="yes" checked> 
+                                    <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
+                                </label>
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineNotificationsOption" value="no"> 
+                                    <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="WTH-timeline-option-group">
+                            <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.updates_label">Updates Notifications</label>
+                            <div class="WTH-timeline-radio-group">
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineUpdatesOption" value="yes"> 
+                                    <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
+                                </label>
+                                <label class="WTH-timeline-radio-option">
+                                    <input type="radio" name="WTHtimelineUpdatesOption" value="no" checked> 
+                                    <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="WTH-timeline-option-group">
+                            <button class="WTH-timeline-button" id="WTHtimelineSyncNow" data-i18n="WTH.timeline.generalOptions.sync_now_button">Sync Now</button>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="WTH-timeline-option-actions">
+                            <button class="WTH-timeline-button WTH-timeline-btn-success" id="WTHtimelineSaveChanges" data-i18n="WTH.timeline.generalOptions.save_changes_button">Save Changes</button>
+                            <button class="WTH-timeline-button" id="WTHtimelineDiscardChanges" data-i18n="WTH.timeline.generalOptions.discard_changes_button">Discard Changes</button>
+                            <button class="WTH-timeline-button WTH-timeline-btn-danger" id="WTHtimelineResetDefault" data-i18n="WTH.timeline.generalOptions.reset_default_button">Reset to Default</button>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- NEW: Reading Mode Option -->
-                <div class="WTH-timeline-option-group">
-                    <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.reading_mode_label">Reading Mode</label>
-                    <div class="WTH-timeline-radio-group">
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineReadingModeOption" value="normal" checked> 
-                            <span data-i18n="WTH.timeline.generalOptions.reading_mode_normal">Normal Contrast</span>
-                        </label>
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineReadingModeOption" value="high"> 
-                            <span data-i18n="WTH.timeline.generalOptions.reading_mode_high">High Contrast</span>
-                        </label>
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineReadingModeOption" value="low"> 
-                            <span data-i18n="WTH.timeline.generalOptions.reading_mode_low">Low Contrast</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <!-- NEW: Font Size Control -->
-                <div class="WTH-timeline-option-group">
-                    <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.font_size_label">Font Size</label>
-                    <div class="WTH-timeline-font-size-control">
-                        <button class="WTH-timeline-font-size-btn" id="WTHtimelineFontSizeDecrease" data-i18n="WTH.timeline.generalOptions.font_size_decrease">-</button>
-                        <span class="WTH-timeline-font-size-display" id="WTHtimelineFontSizeDisplay" data-i18n="WTH.timeline.generalOptions.font_size_default">12px</span>
-                        <button class="WTH-timeline-font-size-btn" id="WTHtimelineFontSizeIncrease" data-i18n="WTH.timeline.generalOptions.font_size_increase">+</button>
-                    </div>
-                </div>
-                
-                <div class="WTH-timeline-option-group">
-                    <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.notifications_label">Notifications</label>
-                    <div class="WTH-timeline-radio-group">
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineNotificationsOption" value="yes" checked> 
-                            <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
-                        </label>
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineNotificationsOption" value="no"> 
-                            <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="WTH-timeline-option-group">
-                    <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.updates_label">Updates Notifications</label>
-                    <div class="WTH-timeline-radio-group">
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineUpdatesOption" value="yes"> 
-                            <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
-                        </label>
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineUpdatesOption" value="no" checked> 
-                            <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="WTH-timeline-option-group">
-                    <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.sync_label">Sync</label>
-                    <div class="WTH-timeline-radio-group">
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineSyncOption" value="yes" checked> 
-                            <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
-                        </label>
-                        <label class="WTH-timeline-radio-option">
-                            <input type="radio" name="WTHtimelineSyncOption" value="no"> 
-                            <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="WTH-timeline-option-group">
-                    <button class="WTH-timeline-button" id="WTHtimelineSyncNow" data-i18n="WTH.timeline.generalOptions.sync_now_button">Sync Now</button>
-                </div>
-                
-                <!-- NEW: Action Buttons -->
-                <div class="WTH-timeline-option-actions">
-                    <button class="WTH-timeline-button WTH-timeline-btn-success" id="WTHtimelineSaveChanges" data-i18n="WTH.timeline.generalOptions.save_changes_button">Save Changes</button>
-                    <button class="WTH-timeline-button" id="WTHtimelineDiscardChanges" data-i18n="WTH.timeline.generalOptions.discard_changes_button">Discard Changes</button>
-                    <button class="WTH-timeline-button WTH-timeline-btn-danger" id="WTHtimelineResetDefault" data-i18n="WTH.timeline.generalOptions.reset_default_button">Reset to Default</button>
-                </div>
-            </div>
-        </div>
-    `
-},
+            `
+        },
 
         // Coming Soon Modal
         comingSoonModal: {
@@ -172,7 +188,7 @@ const WTHtimelineDOMManager = (function() {
         }
     };
 
-    // Initialize DOM Manager
+// Initialize DOM Manager
     function WTHtimelineDOMManagerInit() {
         WTHtimelineDOMManagerInjectElements();
     }
@@ -217,6 +233,7 @@ const WTHtimelineDOMManager = (function() {
         elements.WTHtimelineComingSoonClose = document.getElementById('WTHtimelineComingSoonClose');
         elements.WTHtimelineSyncNow = document.getElementById('WTHtimelineSyncNow');
         elements.WTHtimelineQuestionIcon = document.getElementById('WTHtimelineQuestionIcon');
+        elements.WTHtimelineInstallBtn = document.getElementById('WTHtimelineInstallBtn');
 
         // Control elements
         elements.WTHtimelineYearInput = document.getElementById('WTHtimelineYear');
@@ -230,6 +247,11 @@ const WTHtimelineDOMManager = (function() {
         elements.WTHtimelineElement = document.getElementById('WTHtimelineTimeline');
         elements.WTHtimelineToggleSidebar = document.getElementById('WTHtimelineToggleSidebar');
         elements.WTHtimelineControlsPanel = document.getElementById('WTHtimelineControlsPanel');
+
+        // Font size elements
+        elements.WTHtimelineFontSizeDecrease = document.getElementById('WTHtimelineFontSizeDecrease');
+        elements.WTHtimelineFontSizeIncrease = document.getElementById('WTHtimelineFontSizeIncrease');
+        elements.WTHtimelineFontSizeDisplay = document.getElementById('WTHtimelineFontSizeDisplay');
     }
 
     // Get element by ID with error handling
