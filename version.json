@@ -1,0 +1,21 @@
+{
+  "name": "Interactive Timeline Editor",
+  "version": "1.0.0",
+  "description": "A fully accessible timeline editor with multilingual support",
+  "main": "index.html",
+  "author": "Mejri Ziad",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "features": [
+    "Timeline creation and management",
+    "Multi-language support",
+    "Accessibility compliance", 
+    "Import/Export functionality",
+    "Responsive design"
+  ],
+  "languages": ["en", "es", "fr", "de", "it"],
+  "lastUpdated": "2025-10-22",
+  "compatibility": {
+    "browsers": ["chrome 70+", "firefox 65+", "safari 12+", "edge 79+"],
+    "devices": ["desktop", "tablet", "mobile"]
+  }
+}

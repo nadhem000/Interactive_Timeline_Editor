@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="WTH.timeline.header.title">Interactive Timeline Editor</title>
+<!-- 	Strict Rules:
+CSS Classes: 'WTH-timeline-' prefix to all CSS classes
+Button IDs: 'WTHtimeline' prefix to all button identifiers
+Function Names: 'WTHtimeline' prefix to all JavaScript function names
+Variables: 'WTHtimeline' prefix to all main JavaScript variables
+Input IDs: 'WTHtimeline' prefix to all form input IDs
+Element IDs: 'WTHtimeline' prefix to the main timeline element ID
+data-i18n attributes to all UI elements: 'data-i18n="WTH.timeline.[area].[key]"'. areas can be 'header, footer, body, generalOptions, other'.
+data-i18n Form placeholders: using data-i18n-attr="placeholder" to indicate it's for the placeholder attribute
+Urls: no http, no font awsome, no on line dependency. all icons must be either base 46 inline coded or html code. -->
+    
+    <!-- Include the accessibility CSS -->
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="stylesheet" href="main.css">
+    
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="WTH-timeline-container">
+        <header class="WTH-timeline-header">
+            <h1 class="WTH-timeline-h1" data-i18n="WTH.timeline.header.heading">Interactive Timeline Editor</h1>
+            <p class="WTH-timeline-subtitle" data-i18n="WTH.timeline.header.subtitle">Create and customize your own timeline with events, eras, and multiple languages</p>
+            
+            <!-- Question Icon -->
+            <div class="WTH-timeline-question-icon" id="WTHtimelineQuestionIcon">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+    </svg>
+</div>
+            
+            <!-- Options Icon -->
+            <div class="WTH-timeline-options-icon" id="WTHtimelineOptionsIcon">
+                <svg viewBox="0 0 24 24">
+            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+        </svg>
+            </div>
+        </header>
+        
+        <!-- Options Modal -->
+        <div class="WTH-timeline-modal" id="WTHtimelineOptionsModal">
+    <div class="WTH-timeline-modal-content">
+        <div class="WTH-timeline-modal-header">
+            <h3 class="WTH-timeline-modal-title" data-i18n="WTH.timeline.generalOptions.settings_title">Settings</h3>
+            <button class="WTH-timeline-modal-close" id="WTHtimelineModalClose">&times;</button>
+        </div>
+        <div class="WTH-timeline-modal-body">
+            <div class="WTH-timeline-option-group">
+                <label class="WTH-timeline-option-label" for="WTHtimelineLanguageOption" data-i18n="WTH.timeline.generalOptions.language_label">Language</label>
+                <select class="WTH-timeline-option-select" id="WTHtimelineLanguageOption">
+                    <option value="en" data-i18n="WTH.timeline.generalOptions.language_en">English</option>
+                    <option value="es" data-i18n="WTH.timeline.generalOptions.language_es">Spanish</option>
+                    <option value="fr" data-i18n="WTH.timeline.generalOptions.language_fr">French</option>
+                    <option value="de" data-i18n="WTH.timeline.generalOptions.language_de">German</option>
+                    <option value="it" data-i18n="WTH.timeline.generalOptions.language_it">Italian</option>
+                </select>
+            </div>
+            
+            <div class="WTH-timeline-option-group">
+                <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.mode_label">Mode</label>
+                <div class="WTH-timeline-radio-group">
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineModeOption" value="light" checked> 
+                        <span data-i18n="WTH.timeline.generalOptions.mode_light">Light</span>
+                    </label>
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineModeOption" value="dark"> 
+                        <span data-i18n="WTH.timeline.generalOptions.mode_dark">Dark</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="WTH-timeline-option-group">
+                <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.notifications_label">Notifications</label>
+                <div class="WTH-timeline-radio-group">
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineNotificationsOption" value="yes" checked> 
+                        <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
+                    </label>
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineNotificationsOption" value="no"> 
+                        <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="WTH-timeline-option-group">
+                <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.updates_label">Updates Notifications</label>
+                <div class="WTH-timeline-radio-group">
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineUpdatesOption" value="yes"> 
+                        <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
+                    </label>
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineUpdatesOption" value="no" checked> 
+                        <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="WTH-timeline-option-group">
+                <label class="WTH-timeline-option-label" data-i18n="WTH.timeline.generalOptions.sync_label">Sync</label>
+                <div class="WTH-timeline-radio-group">
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineSyncOption" value="yes" checked> 
+                        <span data-i18n="WTH.timeline.generalOptions.option_yes">Yes</span>
+                    </label>
+                    <label class="WTH-timeline-radio-option">
+                        <input type="radio" name="WTHtimelineSyncOption" value="no"> 
+                        <span data-i18n="WTH.timeline.generalOptions.option_no">No</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="WTH-timeline-option-group">
+                <button class="WTH-timeline-button" id="WTHtimelineSyncNow" data-i18n="WTH.timeline.generalOptions.sync_now_button">Sync Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+        
+        <!-- Coming Soon Modal -->
+        <div class="WTH-timeline-coming-soon" id="WTHtimelineComingSoon">
+    <div class="WTH-timeline-coming-soon-content">
+        <div class="WTH-timeline-coming-soon-icon">🚧</div>
+        <h3 class="WTH-timeline-coming-soon-title" data-i18n="WTH.timeline.body.coming_soon_title">Coming Soon</h3>
+        <p class="WTH-timeline-coming-soon-text" data-i18n="WTH.timeline.body.coming_soon_message">This feature is currently under development and will be available in a future update.</p>
+        <button class="WTH-timeline-button" id="WTHtimelineComingSoonClose" data-i18n="WTH.timeline.body.coming_soon_ok">OK</button>
+    </div>
+</div>
+        
+        <div class="WTH-timeline-main-content">
+            <div class="WTH-timeline-controls-panel" id="WTHtimelineControlsPanel">
+                <div class="WTH-timeline-sidebar-toggle">
+    <h2 data-i18n="WTH.timeline.body.controls_heading">Timeline Controls</h2>
+    <button class="WTH-timeline-sidebar-toggle-btn" id="WTHtimelineToggleSidebar">
+        <span data-i18n="WTH.timeline.body.collapse_sidebar">Collapse</span>
+        <span class="WTH-timeline-sidebar-toggle-icon">◀</span>
+    </button>
+</div>
+                
+                <div class="WTH-timeline-section" id="WTHtimelineAddSection">
+                    <div class="WTH-timeline-section-header">
+                        <h3 class="WTH-timeline-section-title" data-i18n="WTH.timeline.body.add_item_heading">Add Timeline Item</h3>
+                        <span class="WTH-timeline-section-toggle">▼</span>
+                    </div>
+                    <div class="WTH-timeline-section-content">
+                        <div class="WTH-timeline-form-group">
+                            <label class="WTH-timeline-label" for="WTHtimelineYear" data-i18n="WTH.timeline.body.year_label">Year</label>
+                            <input class="WTH-timeline-input" type="number" id="WTHtimelineYear" placeholder="Enter year (e.g., 2023)" min="0" max="3000" data-i18n="WTH.timeline.body.year_placeholder" data-i18n-attr="placeholder">
+                        </div>
+                        <div class="WTH-timeline-form-group">
+                            <label class="WTH-timeline-label" for="WTHtimelineEvent" data-i18n="WTH.timeline.body.event_label">Event Description</label>
+                            <textarea class="WTH-timeline-textarea" id="WTHtimelineEvent" rows="3" placeholder="Describe the event" data-i18n="WTH.timeline.body.event_placeholder" data-i18n-attr="placeholder"></textarea>
+                        </div>
+                        <div class="WTH-timeline-form-group">
+                            <label class="WTH-timeline-label" for="WTHtimelineEra" data-i18n="WTH.timeline.body.era_label">Era/Category</label>
+                            <input class="WTH-timeline-input" type="text" id="WTHtimelineEra" placeholder="Enter era or category (e.g., Renaissance, Technology)" data-i18n="WTH.timeline.body.era_placeholder" data-i18n-attr="placeholder">
+                        </div>
+                        <div class="WTH-timeline-form-group">
+                            <label class="WTH-timeline-label" for="WTHtimelineLanguage" data-i18n="WTH.timeline.body.language_label">Language</label>
+                            <select class="WTH-timeline-select" id="WTHtimelineLanguage">
+                                <option value="en" data-i18n="WTH.timeline.body.language_en">English</option>
+                                <option value="es" data-i18n="WTH.timeline.body.language_es">Spanish</option>
+                                <option value="fr" data-i18n="WTH.timeline.body.language_fr">French</option>
+                                <option value="de" data-i18n="WTH.timeline.body.language_de">German</option>
+                                <option value="it" data-i18n="WTH.timeline.body.language_it">Italian</option>
+                            </select>
+                        </div>
+                        <button id="WTHtimelineAddBtn" class="WTH-timeline-button WTH-timeline-btn-success" data-i18n="WTH.timeline.body.add_button">Add to Timeline</button>
+                    </div>
+                </div>
+                
+                <div class="WTH-timeline-section" id="WTHtimelineManageSection">
+                    <div class="WTH-timeline-section-header">
+                        <h3 class="WTH-timeline-section-title" data-i18n="WTH.timeline.body.manage_heading">Manage Timeline</h3>
+                        <span class="WTH-timeline-section-toggle">▼</span>
+                    </div>
+                    <div class="WTH-timeline-section-content">
+                        <div class="WTH-timeline-actions">
+                            <button id="WTHtimelineClearBtn" class="WTH-timeline-button WTH-timeline-btn-danger" data-i18n="WTH.timeline.body.clear_button">Clear All</button>
+                            <button id="WTHtimelineExportBtn" class="WTH-timeline-button" data-i18n="WTH.timeline.body.export_button">Export Timeline</button>
+                            <button id="WTHtimelineImportBtn" class="WTH-timeline-button" data-i18n="WTH.timeline.body.import_button">Import Timeline</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="WTH-timeline-section" id="WTHtimelineLanguageSection">
+                    <div class="WTH-timeline-section-header">
+                        <h3 class="WTH-timeline-section-title" data-i18n="WTH.timeline.body.language_support_heading">Language Support</h3>
+                        <span class="WTH-timeline-section-toggle">▼</span>
+                    </div>
+                    <div class="WTH-timeline-section-content">
+                        <p data-i18n="WTH.timeline.body.language_support_text">Add timeline items in different languages and switch between them:</p>
+                        <div class="WTH-timeline-language-selector">
+                            <button class="WTH-timeline-language-btn active" data-lang="all" data-i18n="WTH.timeline.body.language_all">All</button>
+                            <button class="WTH-timeline-language-btn" data-lang="en" data-i18n="WTH.timeline.body.language_en_btn">English</button>
+                            <button class="WTH-timeline-language-btn" data-lang="es" data-i18n="WTH.timeline.body.language_es_btn">Spanish</button>
+                            <button class="WTH-timeline-language-btn" data-lang="fr" data-i18n="WTH.timeline.body.language_fr_btn">French</button>
+                            <button class="WTH-timeline-language-btn" data-lang="de" data-i18n="WTH.timeline.body.language_de_btn">German</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="WTH-timeline-timeline-container">
+                <h2 data-i18n="WTH.timeline.body.your_timeline_heading">Your Timeline</h2>
+                <div class="WTH-timeline-timeline" id="WTHtimelineTimeline">
+                    <div class="WTH-timeline-empty-timeline">
+                        <p data-i18n="WTH.timeline.body.empty_timeline_message">Your timeline is empty. Add events using the form on the left.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the accessibility functionality -->
+    <script src="accessibility.js"></script>
+    <!-- Include the timeline controls functionality -->
+    <script src="control.js"></script>
+
+    <script>
+		const WTH_I18N = {
+            timeline: {
+                header: {
+                    title: "Interactive Timeline Editor",
+                    heading: "Interactive Timeline Editor", 
+                    subtitle: "Create and customize your own timeline with events, eras, and multiple languages"
+                },
+        generalOptions: {
+            settings_title: "Settings",
+            language_label: "Language",
+            language_en: "English",
+            language_es: "Spanish", 
+            language_fr: "French",
+            language_de: "German", 
+            language_it: "Italian",
+            mode_label: "Mode",
+            mode_light: "Light",
+            mode_dark: "Dark",
+            notifications_label: "Notifications",
+            updates_label: "Updates Notifications",
+            sync_label: "Sync",
+            option_yes: "Yes",
+            option_no: "No",
+            sync_now_button: "Sync Now"
+        },
+                body: {
+                    controls_heading: "Timeline Controls",
+                    collapse_sidebar: "Collapse Sidebar",
+                    expand_sidebar: "Expand Sidebar",
+                    add_item_heading: "Add Timeline Item",
+                    year_label: "Year",
+                    year_placeholder: "Enter year (e.g., 2023)",
+                    event_label: "Event Description", 
+                    event_placeholder: "Describe the event",
+                    era_label: "Era/Category",
+                    era_placeholder: "Enter era or category (e.g., Renaissance, Technology)",
+                    language_label: "Language",
+                    language_en: "English",
+                    language_es: "Spanish", 
+                    language_fr: "French",
+                    language_de: "German",
+                    language_it: "Italian",
+                    add_button: "Add to Timeline",
+                    manage_heading: "Manage Timeline",
+                    clear_button: "Clear All",
+                    export_button: "Export Timeline",
+                    import_button: "Import Timeline",
+                    language_support_heading: "Language Support",
+                    language_support_text: "Add timeline items in different languages and switch between them:",
+                    language_all: "All",
+                    language_en_btn: "English",
+                    language_es_btn: "Spanish",
+                    language_fr_btn: "French", 
+                    language_de_btn: "German",
+                    your_timeline_heading: "Your Timeline",
+                    empty_timeline_message: "Your timeline is empty. Add events using the form on the left.",
+                    no_items_message: "No timeline items found for the selected language.",
+                    item_language_label: "Language",
+                    edit_button: "Edit",
+                    delete_button: "Delete",
+                    save_button: "Save",
+                    cancel_button: "Cancel",
+                    // for JavaScript messages
+                    validation_year_event_required: "Please enter both year and event description",
+                    confirm_delete_item: "Are you sure you want to delete this timeline item?",
+                    confirm_clear_timeline: "Are you sure you want to clear the entire timeline? This action cannot be undone.",
+                    export_filename: "timeline-data.json",
+                    import_success: "Timeline imported successfully!",
+                    import_invalid_format: "Invalid timeline data format.",
+                    import_parse_error: "Error parsing timeline data: ",
+            coming_soon_title: "Coming Soon",
+            coming_soon_message: "This feature is currently under development and will be available in a future update.",
+            coming_soon_ok: "OK"
+                }
+            }
+        };
+    </script>
+</body>
+</html>

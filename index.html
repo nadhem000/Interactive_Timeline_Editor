@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title data-i18n="WTH.timeline.header.title">Interactive Timeline Editor</title>
+		
+		<!-- Include CSS files -->
+		<link rel="stylesheet" href="accessibility.css">
+		<link rel="stylesheet" href="main.css">
+	</head>
+	<body>
+		<div class="WTH-timeline-container">
+			<!-- Header will be injected by DOM Manager -->
+			<header class="WTH-timeline-header">
+				<!-- Content injected by dom-manager.js -->
+			</header>
+			
+			<!-- Options Modal -->
+			<div class="WTH-timeline-modal" id="WTHtimelineOptionsModal">
+				<!-- Content injected by dom-manager.js -->
+			</div>
+			
+			<!-- Coming Soon Modal -->
+			<div class="WTH-timeline-coming-soon" id="WTHtimelineComingSoon">
+				<!-- Content injected by dom-manager.js -->
+			</div>
+			
+			<div class="WTH-timeline-main-content">
+				<div class="WTH-timeline-controls-panel" id="WTHtimelineControlsPanel">
+					<div class="WTH-timeline-sidebar-toggle">
+						<h2 data-i18n="WTH.timeline.body.controls_heading">Timeline Controls</h2>
+						<button class="WTH-timeline-sidebar-toggle-btn" id="WTHtimelineToggleSidebar">
+							<span data-i18n="WTH.timeline.body.collapse_sidebar">Collapse</span>
+							<span class="WTH-timeline-sidebar-toggle-icon">◀</span>
+						</button>
+					</div>
+					
+					<div class="WTH-timeline-section" id="WTHtimelineAddSection">
+						<div class="WTH-timeline-section-header">
+							<h3 class="WTH-timeline-section-title" data-i18n="WTH.timeline.body.add_item_heading">Add Timeline Item</h3>
+							<span class="WTH-timeline-section-toggle">▼</span>
+						</div>
+						<div class="WTH-timeline-section-content">
+							<div class="WTH-timeline-form-group">
+								<label class="WTH-timeline-label" for="WTHtimelineYear" data-i18n="WTH.timeline.body.year_label">Year</label>
+								<input class="WTH-timeline-input" type="number" id="WTHtimelineYear" placeholder="Enter year (e.g., 2023)" min="0" max="3000" data-i18n="WTH.timeline.body.year_placeholder" data-i18n-attr="placeholder">
+							</div>
+							<div class="WTH-timeline-form-group">
+								<label class="WTH-timeline-label" for="WTHtimelineEvent" data-i18n="WTH.timeline.body.event_label">Event Description</label>
+								<textarea class="WTH-timeline-textarea" id="WTHtimelineEvent" rows="3" placeholder="Describe the event" data-i18n="WTH.timeline.body.event_placeholder" data-i18n-attr="placeholder"></textarea>
+							</div>
+							<div class="WTH-timeline-form-group">
+								<label class="WTH-timeline-label" for="WTHtimelineEra" data-i18n="WTH.timeline.body.era_label">Era/Category</label>
+								<input class="WTH-timeline-input" type="text" id="WTHtimelineEra" placeholder="Enter era or category (e.g., Renaissance, Technology)" data-i18n="WTH.timeline.body.era_placeholder" data-i18n-attr="placeholder">
+							</div>
+							<div class="WTH-timeline-form-group">
+								<label class="WTH-timeline-label" for="WTHtimelineLanguage" data-i18n="WTH.timeline.body.language_label">Language</label>
+								<select class="WTH-timeline-select" id="WTHtimelineLanguage">
+									<option value="en" data-i18n="WTH.timeline.body.language_en">English</option>
+									<option value="es" data-i18n="WTH.timeline.body.language_es">Spanish</option>
+									<option value="fr" data-i18n="WTH.timeline.body.language_fr">French</option>
+									<option value="de" data-i18n="WTH.timeline.body.language_de">German</option>
+									<option value="it" data-i18n="WTH.timeline.body.language_it">Italian</option>
+								</select>
+							</div>
+							<button id="WTHtimelineAddBtn" class="WTH-timeline-button WTH-timeline-btn-success" data-i18n="WTH.timeline.body.add_button">Add to Timeline</button>
+						</div>
+					</div>
+					
+					<div class="WTH-timeline-section" id="WTHtimelineManageSection">
+						<div class="WTH-timeline-section-header">
+							<h3 class="WTH-timeline-section-title" data-i18n="WTH.timeline.body.manage_heading">Manage Timeline</h3>
+							<span class="WTH-timeline-section-toggle">▼</span>
+						</div>
+						<div class="WTH-timeline-section-content">
+							<div class="WTH-timeline-actions">
+								<button id="WTHtimelineClearBtn" class="WTH-timeline-button WTH-timeline-btn-danger" data-i18n="WTH.timeline.body.clear_button">Clear All</button>
+								<button id="WTHtimelineExportBtn" class="WTH-timeline-button" data-i18n="WTH.timeline.body.export_button">Export Timeline</button>
+								<button id="WTHtimelineImportBtn" class="WTH-timeline-button" data-i18n="WTH.timeline.body.import_button">Import Timeline</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="WTH-timeline-section" id="WTHtimelineLanguageSection">
+						<div class="WTH-timeline-section-header">
+							<h3 class="WTH-timeline-section-title" data-i18n="WTH.timeline.body.language_support_heading">Language Support</h3>
+							<span class="WTH-timeline-section-toggle">▼</span>
+						</div>
+						<div class="WTH-timeline-section-content">
+							<p data-i18n="WTH.timeline.body.language_support_text">Add timeline items in different languages and switch between them:</p>
+							<div class="WTH-timeline-language-selector">
+								<button class="WTH-timeline-language-btn active" data-lang="all" data-i18n="WTH.timeline.body.language_all">All</button>
+								<button class="WTH-timeline-language-btn" data-lang="en" data-i18n="WTH.timeline.body.language_en_btn">English</button>
+								<button class="WTH-timeline-language-btn" data-lang="es" data-i18n="WTH.timeline.body.language_es_btn">Spanish</button>
+								<button class="WTH-timeline-language-btn" data-lang="fr" data-i18n="WTH.timeline.body.language_fr_btn">French</button>
+								<button class="WTH-timeline-language-btn" data-lang="de" data-i18n="WTH.timeline.body.language_de_btn">German</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="WTH-timeline-timeline-container">
+					<h2 data-i18n="WTH.timeline.body.your_timeline_heading">Your Timeline</h2>
+					<div class="WTH-timeline-timeline" id="WTHtimelineTimeline">
+						<div class="WTH-timeline-empty-timeline">
+							<p data-i18n="WTH.timeline.body.empty_timeline_message">Your timeline is empty. Add events using the form on the left.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Include JavaScript files in correct order -->
+		<script src="dom-manager.js"></script>
+		<script src="accessibility.js"></script>
+		<script src="control.js"></script>
+		
+		<script>
+			const WTH_I18N = {
+				timeline: {
+					header: {
+						title: "Interactive Timeline Editor",
+						heading: "Interactive Timeline Editor", 
+						subtitle: "Create and customize your own timeline with events, eras, and multiple languages"
+					},
+					generalOptions: {
+						settings_title: "Settings",
+						language_label: "Language",
+						language_en: "English",
+						language_es: "Spanish", 
+						language_fr: "French",
+						language_de: "German", 
+						language_it: "Italian",
+						mode_label: "Mode",
+						mode_light: "Light",
+						mode_dark: "Dark",
+						// NEW OPTIONS
+						reading_mode_label: "Reading Mode",
+						reading_mode_normal: "Normal Contrast",
+						reading_mode_high: "High Contrast", 
+						reading_mode_low: "Low Contrast",
+						font_size_label: "Font Size",
+						font_size_decrease: "-",
+						font_size_increase: "+",
+						font_size_default: "12px",
+						save_changes_button: "Save Changes",
+						discard_changes_button: "Discard Changes", 
+						reset_default_button: "Reset to Default",
+						// EXISTING OPTIONS CONTINUE...
+						notifications_label: "Notifications",
+						updates_label: "Updates Notifications",
+						sync_label: "Sync",
+						option_yes: "Yes",
+						option_no: "No",
+						sync_now_button: "Sync Now"
+					},
+					body: {
+						controls_heading: "Timeline Controls",
+						collapse_sidebar: "Collapse Sidebar",
+						expand_sidebar: "Expand Sidebar",
+						add_item_heading: "Add Timeline Item",
+						year_label: "Year",
+						year_placeholder: "Enter year (e.g., 2023)",
+						event_label: "Event Description", 
+						event_placeholder: "Describe the event",
+						era_label: "Era/Category",
+						era_placeholder: "Enter era or category (e.g., Renaissance, Technology)",
+						language_label: "Language",
+						language_en: "English",
+						language_es: "Spanish", 
+						language_fr: "French",
+						language_de: "German",
+						language_it: "Italian",
+						add_button: "Add to Timeline",
+						manage_heading: "Manage Timeline",
+						clear_button: "Clear All",
+						export_button: "Export Timeline",
+						import_button: "Import Timeline",
+						language_support_heading: "Language Support",
+						language_support_text: "Add timeline items in different languages and switch between them:",
+						language_all: "All",
+						language_en_btn: "English",
+						language_es_btn: "Spanish",
+						language_fr_btn: "French", 
+						language_de_btn: "German",
+						your_timeline_heading: "Your Timeline",
+						empty_timeline_message: "Your timeline is empty. Add events using the form on the left.",
+						no_items_message: "No timeline items found for the selected language.",
+						item_language_label: "Language",
+						edit_button: "Edit",
+						delete_button: "Delete",
+						save_button: "Save",
+						cancel_button: "Cancel",
+						// for JavaScript messages
+						validation_year_event_required: "Please enter both year and event description",
+						confirm_delete_item: "Are you sure you want to delete this timeline item?",
+						confirm_clear_timeline: "Are you sure you want to clear the entire timeline? This action cannot be undone.",
+						export_filename: "timeline-data.json",
+						import_success: "Timeline imported successfully!",
+						import_invalid_format: "Invalid timeline data format.",
+						import_parse_error: "Error parsing timeline data: ",
+						coming_soon_title: "Coming Soon",
+						coming_soon_message: "This feature is currently under development and will be available in a future update.",
+						coming_soon_ok: "OK"
+					}
+				}
+			};
+			
+			// Initialize when DOM is loaded with proper order
+			document.addEventListener('DOMContentLoaded', function() {
+				// Initialize DOM Manager first (injects elements)
+				WTHtimelineDOMManager.init();
+				
+				// Then initialize other modules
+				WTHtimelineaccessibility.init();
+				WTHtimelineControl.init();
+			});
+		</script>
+	</body>
+</html>
