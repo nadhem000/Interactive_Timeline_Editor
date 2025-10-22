@@ -23,13 +23,13 @@ A fully accessible, multilingual timeline editor that allows users to create, cu
 ```
 timeline-editor/
 ├── index.html          # Main application file
-├── control.js            # Timeline functionality
-├── dom-manager.js        # DOM element management
-├── accessibility.js      # Accessibility features
-├── main.css             # Main stylesheet
-├── accessibility.css    # Accessibility styles
 ├── version.json         # Version information
 └── .ignite             # Project configuration
+├── styles/main.css             # Main stylesheet
+├── styles/accessibility.css    # Accessibility styles
+├── scripts/control.js            # Timeline functionality
+├── scripts/dom-manager.js        # DOM element management
+├── scripts/accessibility.js      # Accessibility features
 ```
 
 ## Browser Support

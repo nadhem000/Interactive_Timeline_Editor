@@ -1,0 +1,85 @@
+// [file name]: README.md
+// [file content begin]
+# Interactive Timeline Editor
+A fully accessible, multilingual timeline editor that allows users to create, customize, and manage historical or project timelines with events, eras, and multiple language support.
+## Features
+- 🕐 Create interactive timelines with events and eras
+- 🌍 Multi-language support (English, Spanish, French, German, Italian)
+- ♿ Full accessibility compliance with reading modes and font size controls
+- 💾 Import/Export timeline data as JSON
+- 🎨 Customizable appearance with light/dark modes
+- 📱 Responsive design for all devices
+- 🔧 Collapsible sidebar and sections for better workflow
+## Quick Start
+1. Clone this repository
+2. Open `index.html` in your web browser
+3. Start adding timeline events using the control panel
+## File Structure
+```
+timeline-editor/
+├── index.html          # Main application file
+├── version.json         # Version information
+├── .ignite             # Project configuration
+├── styles/main.css             # Main stylesheet
+├── styles/accessibility.css    # Accessibility styles
+├── scripts/control.js            # Timeline functionality
+├── scripts/dom-manager.js        # DOM element management
+└── scripts/accessibility.js      # Accessibility features
+```
+## Browser Support
+Compatible with all modern browsers including Chrome, Firefox, Safari, and Edge.
+## License
+GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
+// [file name]: .ignite
+// [file content begin]
+{
+  "project": {
+    "name": "Interactive Timeline Editor",
+    "version": "1.0.0",
+    "description": "Accessible multilingual timeline editor",
+    "type": "web-application"
+  },
+  "build": {
+    "entry": "index.html",
+    "scripts": ["scripts/dom-manager.js", "scripts/accessibility.js", "scripts/control.js"],
+    "styles": ["styles/main.css", "styles/accessibility.css"],
+    "output": "dist/"
+  },
+  "features": {
+    "accessibility": true,
+    "i18n": true,
+    "responsive": true,
+    "offline": false
+  },
+  "author": {
+    "name": "Mejri Ziad",
+    "email": "mejri.ziad@gmail.com"
+  }
+}
+// [file content end]
+// [file name]: version.json
+// [file content begin]
+{
+  "name": "Interactive Timeline Editor",
+  "version": "1.0.0",
+  "description": "A fully accessible timeline editor with multilingual support",
+  "main": "index.html",
+  "author": "Mejri Ziad",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "features": [
+    "Timeline creation and management",
+    "Multi-language support",
+    "Accessibility compliance", 
+    "Import/Export functionality",
+    "Responsive design"
+  ],
+  "languages": ["en", "es", "fr", "de", "it"],
+  "lastUpdated": "2025-10-22",
+  "compatibility": {
+    "browsers": ["chrome 70+", "firefox 65+", "safari 12+", "edge 79+"],
+    "devices": ["desktop", "tablet", "mobile"]
+  }
+}
+// [file content end]
+**About Section Paragraph:**
+"The Interactive Timeline Editor is an open-source web application designed to make historical and project timeline creation accessible to everyone. Built with web standards and accessibility as core principles, it enables users to create beautiful, multilingual timelines without technical expertise. The tool features comprehensive accessibility options including multiple reading modes, adjustable font sizes, and full keyboard navigation, making timeline creation inclusive for users with diverse abilities and preferences."
