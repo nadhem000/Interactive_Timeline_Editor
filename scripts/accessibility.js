@@ -3,6 +3,9 @@ const WTHtimelineaccessibility = (function() {
     // Font size management
     let WTHtimelineCurrentFontSize = 12;
     const WTHtimelineFontSizes = [12, 14, 16, 18];
+    
+    // PWA installation
+    let WTHtimelineDeferredPrompt = null;
 
     // Define the font size update function FIRST
     function WTHtimelineaccessibilityUpdateFontSize() {
@@ -27,9 +30,75 @@ const WTHtimelineaccessibility = (function() {
     function WTHtimelineaccessibilityInit() {
         WTHtimelineaccessibilityBindEvents();
         WTHtimelineaccessibilityUpdateFontSize();
+        WTHtimelineaccessibilityInitializePWA();
     }
 
-    // Rest of the code remains the same...
+    // Initialize PWA installation
+    function WTHtimelineaccessibilityInitializePWA() {
+        // Listen for beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            WTHtimelineDeferredPrompt = e;
+            // Show the install button
+            WTHtimelineaccessibilityShowInstallButton();
+        });
+
+        // Listen for app installed event
+        window.addEventListener('appinstalled', () => {
+            // Hide the install button
+            WTHtimelineaccessibilityHideInstallButton();
+            // Clear the deferredPrompt
+            WTHtimelineDeferredPrompt = null;
+            console.log('WTH Timeline: PWA installed successfully');
+        });
+
+        // Check if app is already installed
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            WTHtimelineaccessibilityHideInstallButton();
+        }
+    }
+
+    // Show install button
+    function WTHtimelineaccessibilityShowInstallButton() {
+        const installBtn = WTHtimelineDOMManager.getElement('WTHtimelineInstallBtn');
+        if (installBtn) {
+            installBtn.style.display = 'flex';
+        }
+    }
+
+    // Hide install button
+    function WTHtimelineaccessibilityHideInstallButton() {
+        const installBtn = WTHtimelineDOMManager.getElement('WTHtimelineInstallBtn');
+        if (installBtn) {
+            installBtn.style.display = 'none';
+        }
+    }
+
+    // Handle install button click
+    function WTHtimelineaccessibilityHandleInstall() {
+        if (!WTHtimelineDeferredPrompt) {
+            return;
+        }
+
+        // Show the install prompt
+        WTHtimelineDeferredPrompt.prompt();
+        
+        // Wait for the user to respond to the prompt
+        WTHtimelineDeferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('WTH Timeline: User accepted the install prompt');
+            } else {
+                console.log('WTH Timeline: User dismissed the install prompt');
+            }
+            // Clear the deferredPrompt variable
+            WTHtimelineDeferredPrompt = null;
+            // Hide the install button regardless of outcome
+            WTHtimelineaccessibilityHideInstallButton();
+        });
+    }
+	
     function WTHtimelineaccessibilityBindEvents() {
         // Options modal events
         const WTHtimelineaccessibilityOptionsIcon = WTHtimelineDOMManager.getElement('WTHtimelineOptionsIcon');

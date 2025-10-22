@@ -295,3 +295,74 @@
         width: 100%;
     }
 }
+
+/* Install Button Styles */
+.WTH-timeline-install-btn-container {
+    position: absolute;
+    top: 20px;
+    right: 120px;
+}
+
+.WTH-timeline-install-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    border-radius: 25px;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.WTH-timeline-install-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.WTH-timeline-install-icon {
+    width: 18px;
+    height: 18px;
+    fill: white;
+}
+
+/* Mobile adjustments for install button */
+@media (max-width: 768px) {
+    .WTH-timeline-install-btn-container {
+        top: 10px;
+        right: 100px;
+    }
+    
+    .WTH-timeline-install-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .WTH-timeline-install-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .WTH-timeline-install-btn-container {
+        right: 90px;
+    }
+    
+    .WTH-timeline-install-btn span {
+        display: none;
+    }
+    
+    .WTH-timeline-install-btn {
+        padding: 8px;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        justify-content: center;
+    }
+}

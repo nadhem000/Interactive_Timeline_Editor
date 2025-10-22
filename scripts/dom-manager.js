@@ -11,6 +11,16 @@ const WTHtimelineDOMManager = (function() {
                 <h1 class="WTH-timeline-h1" data-i18n="WTH.timeline.header.heading">Interactive Timeline Editor</h1>
                 <p class="WTH-timeline-subtitle" data-i18n="WTH.timeline.header.subtitle">Create and customize your own timeline with events, eras, and multiple languages</p>
                 
+                <!-- Install Button -->
+                <div class="WTH-timeline-install-btn-container">
+                    <button class="WTH-timeline-install-btn" id="WTHtimelineInstallBtn" style="display: none;">
+                        <svg viewBox="0 0 24 24" class="WTH-timeline-install-icon">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        <span data-i18n="WTH.timeline.header.install_button">Install App</span>
+                    </button>
+                </div>
+                
                 <!-- Question Icon -->
                 <div class="WTH-timeline-question-icon" id="WTHtimelineQuestionIcon">
                     <svg viewBox="0 0 24 24">
