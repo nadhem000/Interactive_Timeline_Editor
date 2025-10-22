@@ -121,7 +121,7 @@ GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
 [file name]: package.json
 [file content begin]
 {
-  "name": "interactive_timeline_editor",
+  "name": "interactive-timeline-editor",
   "version": "1.0.0",
   "description": "A fully accessible timeline editor with multilingual support",
   "main": "index.html",
@@ -142,9 +142,9 @@ GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
   "license": "GNU GENERAL PUBLIC LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nadhem000/interactive_timeline_editor"
+    "url": "https://github.com/nadhem000/interactive-timeline-editor"
   },
-  "homepage": "https://interactive_timeline_editor.netlify.app",
+  "homepage": "https://interactive-timeline-editor.netlify.app",
   "engines": {
     "node": ">=18.0.0"
   },
