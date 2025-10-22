@@ -20,17 +20,21 @@ A fully accessible, multilingual timeline editor that allows users to create, cu
 
 ## File Structure
 
-```
 timeline-editor/
-├── index.html          # Main application file
-├── version.json         # Version information
-└── .ignite             # Project configuration
-├── styles/main.css             # Main stylesheet
-├── styles/accessibility.css    # Accessibility styles
-├── scripts/control.js            # Timeline functionality
-├── scripts/dom-manager.js        # DOM element management
-├── scripts/accessibility.js      # Accessibility features
-```
+├── netlify.toml
+├── _redirects
+├── _headers
+├── package.json
+├── index.html
+├── version.json
+├── .ignite
+├── styles/
+│   ├── main.css
+│   └── accessibility.css
+└── scripts/
+    ├── control.js
+    ├── dom-manager.js
+    └── accessibility.js
 
 ## Browser Support
 

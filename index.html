@@ -3,11 +3,23 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Interactive Timeline Editor - Create and customize your own timeline with events, eras, and multiple languages">
+		<meta name="keywords" content="timeline, history, interactive, accessibility, multilingual">
 		<title data-i18n="WTH.timeline.header.title">Interactive Timeline Editor</title>
 		
 		<!-- Include CSS files -->
 		<link rel="stylesheet" href="styles/accessibility.css">
 		<link rel="stylesheet" href="styles/main.css">
+		<!-- 	Strict Rules:
+			CSS Classes: 'WTH-timeline-' prefix to all CSS classes
+			Button IDs: 'WTHtimeline' prefix to all button identifiers
+			Function Names: 'WTHtimeline' prefix to all JavaScript function names
+			Variables: 'WTHtimeline' prefix to all main JavaScript variables
+			Input IDs: 'WTHtimeline' prefix to all form input IDs
+			Element IDs: 'WTHtimeline' prefix to the main timeline element ID
+			data-i18n attributes to all UI elements: 'data-i18n="WTH.timeline.[area].[key]"'. areas can be 'header, footer, body, generalOptions, other'.
+			data-i18n Form placeholders: using data-i18n-attr="placeholder" to indicate it's for the placeholder attribute
+		Urls: no http, no font awsome, no on line dependency. all icons must be either base 46 inline coded or html code. -->
 	</head>
 	<body>
 		<div class="WTH-timeline-container">

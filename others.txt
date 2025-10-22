@@ -17,15 +17,20 @@ A fully accessible, multilingual timeline editor that allows users to create, cu
 ## File Structure
 ```
 timeline-editor/
-├── index.html          # Main application file
-├── version.json         # Version information
-├── .ignite             # Project configuration
-├── styles/main.css             # Main stylesheet
-├── styles/accessibility.css    # Accessibility styles
-├── scripts/control.js            # Timeline functionality
-├── scripts/dom-manager.js        # DOM element management
-└── scripts/accessibility.js      # Accessibility features
-```
+├── netlify.toml
+├── _redirects
+├── _headers
+├── package.json
+├── index.html
+├── version.json
+├── .ignite
+├── styles/
+│   ├── main.css
+│   └── accessibility.css
+└── scripts/
+    ├── control.js
+    ├── dom-manager.js
+    └── accessibility.js
 ## Browser Support
 Compatible with all modern browsers including Chrome, Firefox, Safari, and Edge.
 ## License
@@ -80,6 +85,78 @@ GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
     "devices": ["desktop", "tablet", "mobile"]
   }
 }
+[file name]: netlify.toml
+[file content begin]
+[build]
+  publish = "."
+[build.environment]
+  NODE_VERSION = "18"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+[file content end]
+[file name]: _redirects
+[file content begin]
+/*    /index.html   200
+[file content end]
+[file name]: _headers
+[file content begin]
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+[file content end]
+[file name]: package.json
+[file content begin]
+{
+  "name": "interactive_timeline_editor",
+  "version": "1.0.0",
+  "description": "A fully accessible timeline editor with multilingual support",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build process needed - static site'",
+    "dev": "echo 'Open index.html in browser'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "timeline",
+    "accessibility",
+    "multilingual",
+    "interactive",
+    "history",
+    "education"
+  ],
+  "author": "Mejri Ziad <mejri.ziad@gmail.com>",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nadhem000/interactive_timeline_editor"
+  },
+  "homepage": "https://interactive_timeline_editor.netlify.app",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
+[file content end]
+[file name]: robots.txt
+[file content begin]
+User-agent: *
+Allow: /
+[file content end]
 // [file content end]
 **About Section Paragraph:**
 "The Interactive Timeline Editor is an open-source web application designed to make historical and project timeline creation accessible to everyone. Built with web standards and accessibility as core principles, it enables users to create beautiful, multilingual timelines without technical expertise. The tool features comprehensive accessibility options including multiple reading modes, adjustable font sizes, and full keyboard navigation, making timeline creation inclusive for users with diverse abilities and preferences."

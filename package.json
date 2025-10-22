@@ -1,0 +1,31 @@
+{
+  "name": "interactive_timeline_editor",
+  "version": "1.0.0",
+  "description": "A fully accessible timeline editor with multilingual support",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build process needed - static site'",
+    "dev": "echo 'Open index.html in browser'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "timeline",
+    "accessibility",
+    "multilingual",
+    "interactive",
+    "history",
+    "education"
+  ],
+  "author": "Mejri Ziad <mejri.ziad@gmail.com>",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nadhem000/interactive_timeline_editor"
+  },
+  "homepage": "https://interactive_timeline_editor.netlify.app",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
