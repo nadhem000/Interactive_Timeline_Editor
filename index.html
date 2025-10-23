@@ -154,6 +154,34 @@
 					});
 				});
 			}
+// Enhanced service worker registration with offline fallback
+function WTHtimelineEnhancedSWRegistration() {
+  if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
+    navigator.serviceWorker.register('/sw.js')
+    .then(function(registration) {
+      console.log('WTH Timeline Service Worker registered with scope:', registration.scope);
+      
+      // Check if we're currently offline
+      if (!navigator.onLine) {
+        console.log('WTH Timeline: Starting in offline mode');
+        document.body.classList.add('WTH-timeline-offline');
+      }
+    })
+    .catch(function(error) {
+      console.log('WTH Timeline Service Worker registration failed:', error);
+      WTHtimelineHandleOfflineFallback();
+    });
+  } else {
+    // File protocol or no service worker support
+    WTHtimelineHandleOfflineFallback();
+  }
+}
+
+function WTHtimelineHandleOfflineFallback() {
+  console.log('WTH Timeline: Using offline capabilities');
+  //  could optionally redirect to offline.html here
+  // window.location.href = '/offline.html';
+}
 			const WTH_I18N = {
 				timeline: {
 					header: {
@@ -255,12 +283,15 @@
 			
 			// Initialize when DOM is loaded with proper order
 			document.addEventListener('DOMContentLoaded', function() {
-				// Initialize DOM Manager first (injects elements)
-				WTHtimelineDOMManager.init();
-				
-				// Then initialize other modules
-				WTHtimelineaccessibility.init();
-				WTHtimelineControl.init();
+  // Initialize DOM Manager first (injects elements)
+  WTHtimelineDOMManager.init();
+  
+  // Then initialize other modules
+  WTHtimelineaccessibility.init();
+  WTHtimelineControl.init();
+  
+  // Register service worker with enhanced offline support
+  WTHtimelineEnhancedSWRegistration();
 			});
 		</script>
 	</body>

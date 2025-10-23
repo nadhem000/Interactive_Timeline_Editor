@@ -3,6 +3,7 @@ const WTHtimelineCacheName = 'WTH-timeline-v1.0.2';
 const WTHtimelineAssets = [
   '/',
   '/index.html',
+  '/offline.html',
   '/styles/main.css',
   '/styles/accessibility.css',
   '/scripts/dom-manager.js',
@@ -13,14 +14,14 @@ const WTHtimelineAssets = [
   '/manifest.json'
 ];
 
-// Install Event - Cache all essential assets
+// Install Event - Cache all essential assets including offline.html
 self.addEventListener('install', (event) => {
   console.log('WTH Timeline Service Worker: Installing...');
   
   event.waitUntil(
     caches.open(WTHtimelineCacheName)
       .then((cache) => {
-        console.log('WTH Timeline Service Worker: Caching app shell');
+        console.log('WTH Timeline Service Worker: Caching app shell and offline page');
         return cache.addAll(WTHtimelineAssets);
       })
       .then(() => {
@@ -54,10 +55,25 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event - Serve from cache, fallback to network
+// Enhanced Fetch Event - Serve from cache, fallback to offline.html
 self.addEventListener('fetch', (event) => {
-  // Skip cross-origin requests
-  if (!event.request.url.startsWith(self.location.origin)) {
+  // Skip cross-origin requests and file:// protocol
+  if (!event.request.url.startsWith(self.location.origin) || event.request.url.startsWith('file://')) {
+    return;
+  }
+
+  // Handle navigation requests specifically
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          return response;
+        })
+        .catch(() => {
+          // Return offline.html when network fails
+          return caches.match('/offline.html');
+        })
+    );
     return;
   }
 
@@ -81,10 +97,15 @@ self.addEventListener('fetch', (event) => {
             return fetchResponse;
           })
           .catch(() => {
-            // Fallback for failed requests
+            // Enhanced fallback for failed requests
             if (event.request.destination === 'document') {
-              return caches.match('/index.html');
+              return caches.match('/offline.html');
             }
+            // For other file types, return appropriate fallback
+            return new Response('Offline content not available', {
+              status: 408,
+              statusText: 'Network connection failed'
+            });
           });
       })
   );
@@ -95,9 +116,17 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+  
+  // Handle offline status check
+  if (event.data && event.data.type === 'CHECK_OFFLINE_STATUS') {
+    event.ports[0].postMessage({
+      type: 'OFFLINE_STATUS',
+      isOffline: !navigator.onLine
+    });
+  }
 });
 
-// NEW: Background Sync Event
+// Background Sync Event
 self.addEventListener('sync', (event) => {
   if (event.tag === 'WTH-timeline-background-sync') {
     console.log('WTH Timeline Service Worker: Background sync triggered');
@@ -107,7 +136,7 @@ self.addEventListener('sync', (event) => {
   }
 });
 
-// NEW: Periodic Sync Event
+// Periodic Sync Event
 self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'WTH-timeline-update') {
     console.log('WTH Timeline Service Worker: Periodic sync triggered');
@@ -117,7 +146,7 @@ self.addEventListener('periodicsync', (event) => {
   }
 });
 
-// NEW: Handle background sync
+// Handle background sync
 function WTHtimelineHandleBackgroundSync() {
   return caches.open(WTHtimelineCacheName).then(cache => {
     // Check for updated assets
@@ -146,13 +175,14 @@ function WTHtimelineHandleBackgroundSync() {
   });
 }
 
-// NEW: Handle periodic sync
+// Handle periodic sync
 function WTHtimelineHandlePeriodicSync() {
   return caches.open(WTHtimelineCacheName).then(cache => {
     // Update critical assets only
     const criticalAssets = [
       '/',
       '/index.html',
+      '/offline.html',
       '/styles/main.css',
       '/scripts/control.js'
     ];
@@ -173,13 +203,14 @@ function WTHtimelineHandlePeriodicSync() {
   });
 }
 
-// NEW: Listen for sync completion messages to update the UI
+// Enhanced offline detection
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'CHECK_SYNC_STATUS') {
     // Return current sync status
     event.ports[0].postMessage({
       type: 'SYNC_STATUS',
-      lastSync: new Date().toISOString()
+      lastSync: new Date().toISOString(),
+      isOnline: navigator.onLine
     });
   }
 });

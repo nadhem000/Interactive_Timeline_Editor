@@ -464,3 +464,80 @@ body {
         left: 100px;
     }
 }
+
+/* Offline Mode Styles */
+.WTH-timeline-offline-mode {
+  background-color: #f8f9fa;
+}
+
+.WTH-timeline-offline-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 4px;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #856404;
+}
+
+.WTH-timeline-offline-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ffc107;
+  border-radius: 50%;
+  animation: WTH-timeline-pulse 2s infinite;
+}
+
+.WTH-timeline-offline-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.WTH-timeline-offline-notice {
+  background-color: #e3f2fd;
+  border: 1px solid #bbdefb;
+  border-radius: 4px;
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.WTH-timeline-offline-notice p {
+  margin: 0;
+  color: #1565c0;
+}
+
+@keyframes WTH-timeline-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Online/Offline state indicators */
+.WTH-timeline-online .WTH-timeline-header {
+  border-bottom: 3px solid #28a745;
+}
+
+.WTH-timeline-offline .WTH-timeline-header {
+  border-bottom: 3px solid #ffc107;
+}
+
+/* Responsive offline styles */
+@media (max-width: 768px) {
+  .WTH-timeline-offline-banner {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .WTH-timeline-offline-notice {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
