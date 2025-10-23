@@ -1,5 +1,5 @@
 // Service Worker for Interactive Timeline Editor
-const WTHtimelineCacheName = 'WTH-timeline-v1.0.5';
+const WTHtimelineCacheName = 'WTH-timeline-v1.0.6';
 const WTHtimelineAssets = [
 	'/',
 	'/index.html',
@@ -8,6 +8,7 @@ const WTHtimelineAssets = [
 	'/styles/accessibility.css',
 	'/scripts/dom-manager.js',
 	'/scripts/accessibility.js',
+	'/scripts/translations.js',
 	'/scripts/control.js',
 	'/assets/icons/icon-72x72.png',
     '/assets/icons/icon-96x96.png',

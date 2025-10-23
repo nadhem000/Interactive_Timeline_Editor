@@ -187,99 +187,6 @@ const WTHtimelineDOMManager = (function() {
         }
     };
 
-    // I18N Configuration
-    const WTH_I18N = {
-        timeline: {
-            header: {
-                title: "Interactive Timeline Editor",
-                heading: "Interactive Timeline Editor", 
-                subtitle: "Create and customize your own timeline with events, eras, and multiple languages",
-                install_button: "Install App"
-            },
-            generalOptions: {
-                settings_title: "Settings",
-                language_label: "Language",
-                language_en: "English",
-                language_es: "Spanish", 
-                language_fr: "French",
-                language_de: "German", 
-                language_it: "Italian",
-                mode_label: "Mode",
-                mode_light: "Light",
-                mode_dark: "Dark",
-                reading_mode_label: "Reading Mode",
-                reading_mode_normal: "Normal Contrast",
-                reading_mode_high: "High Contrast", 
-                reading_mode_low: "Low Contrast",
-                font_size_label: "Font Size",
-                font_size_decrease: "-",
-                font_size_increase: "+",
-                font_size_default: "12px",
-                save_changes_button: "Save Changes",
-                discard_changes_button: "Discard Changes", 
-                reset_default_button: "Reset to Default",
-                notifications_label: "Notifications",
-                updates_label: "Updates Notifications",
-                sync_label: "Sync",
-                option_yes: "Yes",
-                option_no: "No",
-                sync_now_button: "Sync Now",
-                background_sync_label: "Background Sync",
-                periodic_sync_label: "Periodic Sync"
-            },
-            body: {
-                controls_heading: "Timeline Controls",
-                collapse_sidebar: "Collapse Sidebar",
-                expand_sidebar: "Expand Sidebar",
-                add_item_heading: "Add Timeline Item",
-                year_label: "Year",
-                year_placeholder: "Enter year (e.g., 2023)",
-                event_label: "Event Description", 
-                event_placeholder: "Describe the event",
-                era_label: "Era/Category",
-                era_placeholder: "Enter era or category (e.g., Renaissance, Technology)",
-                language_label: "Language",
-                language_en: "English",
-                language_es: "Spanish", 
-                language_fr: "French",
-                language_de: "German",
-                language_it: "Italian",
-                add_button: "Add to Timeline",
-                manage_heading: "Manage Timeline",
-                clear_button: "Clear All",
-                export_button: "Export Timeline",
-                import_button: "Import Timeline",
-                language_support_heading: "Language Support",
-                language_support_text: "Add timeline items in different languages and switch between them:",
-                language_all: "All",
-                language_en_btn: "English",
-                language_es_btn: "Spanish",
-                language_fr_btn: "French", 
-                language_de_btn: "German",
-                your_timeline_heading: "Your Timeline",
-                empty_timeline_message: "Your timeline is empty. Add events using the form on the left.",
-                no_items_message: "No timeline items found for the selected language.",
-                item_language_label: "Language",
-                edit_button: "Edit",
-                delete_button: "Delete",
-                save_button: "Save",
-                cancel_button: "Cancel",
-                validation_year_event_required: "Please enter both year and event description",
-                confirm_delete_item: "Are you sure you want to delete this timeline item?",
-                confirm_clear_timeline: "Are you sure you want to clear the entire timeline? This action cannot be undone.",
-                export_filename: "timeline-data.json",
-                import_success: "Timeline imported successfully!",
-                import_invalid_format: "Invalid timeline data format.",
-                import_parse_error: "Error parsing timeline data: ",
-                coming_soon_title: "Coming Soon",
-                coming_soon_message: "This feature is currently under development and will be available in a future update.",
-                coming_soon_ok: "OK",
-                sync_started: "Sync started! Your timeline data will be updated in the background.",
-                sync_disabled: "Background sync is disabled. Enable it in settings to use this feature.",
-                sync_completed: "Background sync completed successfully."
-            }
-        }
-    };
 
     // Service Worker and Initialization Functions
 
@@ -503,8 +410,7 @@ const WTHtimelineDOMManager = (function() {
         getElement: WTHtimelineDOMManagerGetElement,
         getElements: WTHtimelineDOMManagerGetElements,
         injectElements: WTHtimelineDOMManagerInjectElements,
-        initializeApp: WTHtimelineInitializeApp,
-        I18N: WTH_I18N
+        initializeApp: WTHtimelineInitializeApp
     };
 })();
 

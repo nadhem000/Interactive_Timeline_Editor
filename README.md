@@ -32,6 +32,7 @@ timeline-editor/
 │   ├── main.css
 │   └── accessibility.css
 └── scripts/
+    ├── translations.js
     ├── control.js
     ├── dom-manager.js
     └── accessibility.js
