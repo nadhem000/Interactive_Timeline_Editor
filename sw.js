@@ -1,5 +1,5 @@
 // Service Worker for Interactive Timeline Editor - FIXED OFFLINE SUPPORT
-const WTHtimelineCacheName = 'WTH-timeline-v1.1.0';
+const WTHtimelineCacheName = 'WTH-timeline-v1.1.1';
 const WTHtimelineAssets = [
 	'/',
 	'/index.html',
@@ -20,11 +20,27 @@ const WTHtimelineAssets = [
 	'/assets/icons/icon-512x512.png',
 	'/assets/screenshots/screenshot-desktop_1280x720.png',
 	'/assets/screenshots/screenshot-mobile_375x667.png',
-	'/manifest.json'
+	'/manifest.json',
   // Fallback for root paths
   './',
   './index.html',
-  './offline.html'
+  './offline.html',
+	'/styles/main.css',
+	'/styles/accessibility.css',
+	'/scripts/dom-manager.js',
+	'/scripts/accessibility.js',
+	'/scripts/translations.js',
+	'/scripts/control.js',
+	'/assets/icons/icon-72x72.png',
+    '/assets/icons/icon-96x96.png',
+    '/assets/icons/icon-128x128.png',
+    '/assets/icons/icon-144x144.png',
+    '/assets/icons/icon-152x152.png',
+    '/assets/icons/icon-192x192.png',
+    '/assets/icons/icon-384x384.png',
+	'/assets/icons/icon-512x512.png',
+	'/assets/screenshots/screenshot-desktop_1280x720.png',
+	'/assets/screenshots/screenshot-mobile_375x667.png'
 ];
 
 // Install Event - Cache all essential assets
