@@ -1,5 +1,5 @@
 // Service Worker for Interactive Timeline Editor
-const WTHtimelineCacheName = 'WTH-timeline-v1.0.2';
+const WTHtimelineCacheName = 'WTH-timeline-v1.0.3';
 const WTHtimelineAssets = [
   '/',
   '/index.html',
