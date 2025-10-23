@@ -40,7 +40,7 @@ GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
 {
   "project": {
     "name": "Interactive Timeline Editor",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Accessible multilingual timeline editor",
     "type": "web-application"
   },
@@ -66,7 +66,7 @@ GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
 // [file content begin]
 {
   "name": "Interactive Timeline Editor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A fully accessible timeline editor with multilingual support",
   "main": "index.html",
   "author": "Mejri Ziad",
@@ -125,7 +125,7 @@ GNU GENERAL PUBLIC LICENSE - see LICENSE file for details
 [file content begin]
 {
   "name": "interactive-timeline-editor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A fully accessible timeline editor with multilingual support",
   "main": "index.html",
   "scripts": {
