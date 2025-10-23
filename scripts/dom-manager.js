@@ -301,6 +301,14 @@ const WTHtimelineDOMManager = (function() {
       `;
     }
   }
+  if (!isOnline) {
+    // Ensure critical functionality works offline
+    const timelineData = localStorage.getItem('WTHtimelineData');
+    if (!timelineData) {
+      // Load default sample data if no local data exists
+      localStorage.setItem('WTHtimelineData', JSON.stringify(WTHtimelineControl.getData()));
+    }
+  }
   
   console.log(`WTH Timeline: App is ${isOnline ? 'online' : 'offline'}`);
 }
