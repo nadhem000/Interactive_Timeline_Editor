@@ -1,6 +1,6 @@
 {
   "name": "interactive-timeline-editor",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "A fully accessible timeline editor with multilingual support",
   "main": "index.html",
   "scripts": {

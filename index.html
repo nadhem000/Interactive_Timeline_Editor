@@ -141,6 +141,39 @@
 		<script src="scripts/dom-manager.js"></script>
 		<script src="scripts/accessibility.js"></script>
 		<script src="scripts/control.js"></script>
+<script>
+// Enhanced Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('WTH Timeline: ServiceWorker registration successful');
+        
+        // Check for page controlled by service worker
+        if (navigator.serviceWorker.controller) {
+          console.log('WTH Timeline: Page is controlled by ServiceWorker');
+        }
+        
+        // Monitor online/offline status
+        window.addEventListener('online', function() {
+          console.log('WTH Timeline: App came online');
+          document.body.classList.remove('WTH-timeline-offline');
+          document.body.classList.add('WTH-timeline-online');
+        });
+        
+        window.addEventListener('offline', function() {
+          console.log('WTH Timeline: App went offline');
+          document.body.classList.remove('WTH-timeline-online');
+          document.body.classList.add('WTH-timeline-offline');
+        });
+        
+      })
+      .catch(function(error) {
+        console.log('WTH Timeline: ServiceWorker registration failed: ', error);
+      });
+  });
+}
+</script>
 		
 	</body>
 </html>

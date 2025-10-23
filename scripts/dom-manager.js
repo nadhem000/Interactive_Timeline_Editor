@@ -192,26 +192,48 @@ const WTHtimelineDOMManager = (function() {
 
     // Enhanced service worker registration with offline fallback
     function WTHtimelineEnhancedSWRegistration() {
-        if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
-            navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-                console.log('WTH Timeline Service Worker registered with scope:', registration.scope);
-                
-                // Check if we're currently offline
-                if (!navigator.onLine) {
-                    console.log('WTH Timeline: Starting in offline mode');
-                    document.body.classList.add('WTH-timeline-offline');
-                }
-            })
-            .catch(function(error) {
-                console.log('WTH Timeline Service Worker registration failed:', error);
-                WTHtimelineHandleOfflineFallback();
-            });
-        } else {
-            // File protocol or no service worker support
-            WTHtimelineHandleOfflineFallback();
+  if ('serviceWorker' in navigator) {
+    // Use current origin for service worker registration
+    const swUrl = './sw.js';
+    
+    navigator.serviceWorker.register(swUrl)
+      .then(function(registration) {
+        console.log('WTH Timeline Service Worker registered with scope:', registration.scope);
+        
+        // Check for updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          console.log('WTH Timeline Service Worker update found');
+          
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('WTH Timeline: New content available; please refresh.');
+            }
+          });
+        });
+        
+        // Check if we're currently offline
+        if (!navigator.onLine) {
+          console.log('WTH Timeline: Starting in offline mode');
+          document.body.classList.add('WTH-timeline-offline');
         }
-    }
+      })
+      .catch(function(error) {
+        console.log('WTH Timeline Service Worker registration failed:', error);
+        WTHtimelineHandleOfflineFallback();
+      });
+      
+    // Listen for controlled page updates
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      console.log('WTH Timeline: Service Worker controller changed');
+      window.location.reload();
+    });
+  } else {
+    // No service worker support
+    console.log('WTH Timeline: Service Worker not supported');
+    WTHtimelineHandleOfflineFallback();
+  }
+}
 
     // Basic service worker registration for offline mode
     function WTHtimelineRegisterServiceWorker() {
@@ -238,34 +260,50 @@ const WTHtimelineDOMManager = (function() {
 
     // Handle offline/file protocol environment
     function WTHtimelineHandleOfflineEnvironment() {
-        console.log('WTH Timeline: Running in offline/file environment');
-        // Add offline-specific styling
-        document.body.classList.add('WTH-timeline-offline-mode');
-        
-        // Update UI to show offline status
-        const header = document.querySelector('.WTH-timeline-header');
-        if (header) {
-            const offlineIndicator = document.createElement('div');
-            offlineIndicator.className = 'WTH-timeline-offline-banner';
-            offlineIndicator.innerHTML = `
-                <div class="WTH-timeline-offline-message">
-                    <strong>Offline Mode</strong> - Working with local data only
-                </div>
-            `;
-            header.appendChild(offlineIndicator);
-        }
-    }
+  console.log('WTH Timeline: Running in offline/file environment');
+  
+  // Add offline-specific styling
+  document.body.classList.add('WTH-timeline-offline-mode');
+  
+  // Create offline indicator
+  const offlineIndicator = document.createElement('div');
+  offlineIndicator.className = 'WTH-timeline-offline-banner';
+  offlineIndicator.innerHTML = `
+    <div class="WTH-timeline-offline-message">
+      <strong>Offline Mode</strong> - Working with local data only
+    </div>
+  `;
+  
+  // Insert at the top of the container
+  const container = document.querySelector('.WTH-timeline-container');
+  if (container) {
+    container.insertBefore(offlineIndicator, container.firstChild);
+  }
+}
 
     // Check online/offline status
     function WTHtimelineUpdateOnlineStatus() {
-        const isOnline = navigator.onLine;
-        document.body.classList.toggle('WTH-timeline-online', isOnline);
-        document.body.classList.toggle('WTH-timeline-offline', !isOnline);
-        
-        if (!isOnline) {
-            console.log('WTH Timeline: App is offline');
-        }
+  const isOnline = navigator.onLine;
+  document.body.classList.toggle('WTH-timeline-online', isOnline);
+  document.body.classList.toggle('WTH-timeline-offline', !isOnline);
+  
+  // Update offline banner if it exists
+  const offlineBanner = document.querySelector('.WTH-timeline-offline-banner');
+  if (offlineBanner) {
+    if (isOnline) {
+      offlineBanner.style.display = 'none';
+    } else {
+      offlineBanner.style.display = 'block';
+      offlineBanner.innerHTML = `
+        <div class="WTH-timeline-offline-message">
+          <strong>Offline Mode</strong> - Working with local data only
+        </div>
+      `;
     }
+  }
+  
+  console.log(`WTH Timeline: App is ${isOnline ? 'online' : 'offline'}`);
+}
 
     // Fallback initialization if standard initialization fails
     function WTHtimelineFallbackInitialization() {
